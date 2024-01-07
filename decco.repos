@@ -1,0 +1,57 @@
+repositories:
+  bag_recorder:
+    type: git
+    url: git@github.com:robotics88official/bag_recorder.git
+    version: master
+  depth-image-to-mavlink:
+    type: git
+    url: git@github.com:robotics88official/depth-image-to-mavlink.git
+    version: main
+  exploration:
+    type: git
+    url: git@github.com:robotics88official/exploration.git
+    version: main
+  fast_lio_lc:
+    type: git
+    url: git@github.com:robotics88official/fast_lio_lc.git
+    version: master
+  faster-lio:
+    type: git
+    url: git@github.com:robotics88official/faster-lio.git
+    version: main
+  image-segment:
+    type: git
+    url: git@github.com:robotics88official/image-segment.git
+    version: main
+  monarch:
+    type: git
+    url: git@github.com:robotics88official/monarch.git
+    version: main
+  path-to-mavros:
+    type: git
+    url: git@github.com:robotics88official/path-to-mavros.git
+    version: main
+  pcl-analysis:
+    type: git
+    url: git@github.com:robotics88official/pcl-analysis.git
+    version: main
+  ros-messages-88:
+    type: git
+    url: git@github.com:robotics88official/ros-messages-88.git
+    version: main
+  slam:
+    type: git
+    url: git@github.com:robotics88official/slam.git
+    version: main
+  task-manager:
+    type: git
+    url: git@github.com:robotics88official/task-manager.git
+    version: main
+  vegetation:
+    type: git
+    url: git@github.com:robotics88official/vegetation.git
+    version: main
+  vehicle-launch:
+    type: git
+    url: git@github.com:robotics88official/vehicle-launch.git
+    version: main
