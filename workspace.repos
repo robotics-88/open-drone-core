@@ -1,15 +1,15 @@
 repositories:
   airsim-ROS-wrapper:
     type: git
-    url: git@github.com:robotics88official/airsim-mavros-wrapper.git
+    url: git@github.com:robotics-88/airsim-mavros-wrapper.git
     version: main
   bag_recorder:
     type: git
-    url: git@github.com:robotics88official/bag_recorder.git
+    url: git@github.com:robotics-88/bag_recorder.git
     version: master
   depth-image-to-mavlink:
     type: git
-    url: git@github.com:robotics88official/depth-image-to-mavlink.git
+    url: git@github.com:robotics-88/depth-image-to-mavlink.git
     version: main
   elevation_mapping:
     type: git
@@ -17,19 +17,19 @@ repositories:
     version: master
   exploration:
     type: git
-    url: git@github.com:robotics88official/exploration.git
+    url: git@github.com:robotics-88/exploration.git
     version: main
   fast_lio_lc:
     type: git
-    url: git@github.com:robotics88official/fast_lio_lc.git
+    url: git@github.com:robotics-88/fast_lio_lc.git
     version: master
   faster-lio:
     type: git
-    url: git@github.com:robotics88official/faster-lio.git
+    url: git@github.com:robotics-88/faster-lio.git
     version: main
   image-segment:
     type: git
-    url: git@github.com:robotics88official/image-segment.git
+    url: git@github.com:robotics-88/image-segment.git
     version: main
   kindr:
     type: git
@@ -45,37 +45,37 @@ repositories:
     version: master
   monarch:
     type: git
-    url: git@github.com:robotics88official/monarch.git
+    url: git@github.com:robotics-88/monarch.git
     version: main
   path-to-mavros:
     type: git
-    url: git@github.com:robotics88official/path-to-mavros.git
+    url: git@github.com:robotics-88/path-to-mavros.git
     version: main
   pcl-analysis:
     type: git
-    url: git@github.com:robotics88official/pcl-analysis.git
+    url: git@github.com:robotics-88/pcl-analysis.git
     version: main
   ros-messages-88:
     type: git
-    url: git@github.com:robotics88official/ros-messages-88.git
+    url: git@github.com:robotics-88/ros-messages-88.git
     version: main
   rs_to_velodyne:
     type: git
-    url: git@github.com:robotics88official/rs_to_velodyne.git
+    url: git@github.com:robotics-88/rs_to_velodyne.git
     version: master
   slam:
     type: git
-    url: git@github.com:robotics88official/slam.git
+    url: git@github.com:robotics-88/slam.git
     version: main
   task-manager:
     type: git
-    url: git@github.com:robotics88official/task-manager.git
+    url: git@github.com:robotics-88/task-manager.git
     version: main
   vegetation:
     type: git
-    url: git@github.com:robotics88official/vegetation.git
+    url: git@github.com:robotics-88/vegetation.git
     version: main
   vehicle-launch:
     type: git
-    url: git@github.com:robotics88official/vehicle-launch.git
+    url: git@github.com:robotics-88/vehicle-launch.git
     version: main
