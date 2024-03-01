@@ -7,9 +7,9 @@ repositories:
     type: git
     url: git@github.com:robotics-88/bag_recorder.git
     version: master
-  depth-image-to-mavlink:
+  range-data-to-mavros:
     type: git
-    url: git@github.com:robotics-88/depth-image-to-mavlink.git
+    url: git@github.com:robotics-88/range-data-to-mavros.git
     version: main
   elevation_mapping:
     type: git
