@@ -27,10 +27,6 @@ repositories:
     type: git
     url: git@github.com:robotics-88/mavros.git
     version: master
-  monarch:
-    type: git
-    url: git@github.com:robotics-88/monarch.git
-    version: main
   path-to-mavros:
     type: git
     url: git@github.com:robotics-88/path-to-mavros.git

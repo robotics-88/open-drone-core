@@ -15,18 +15,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/fast_lio_lc.git
     version: master
-  image-segment:
-    type: git
-    url: git@github.com:robotics-88/image-segment.git
-    version: main
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
     version: master
-  monarch:
-    type: git
-    url: git@github.com:robotics-88/monarch.git
-    version: main
   path-to-mavros:
     type: git
     url: git@github.com:robotics-88/path-to-mavros.git
@@ -46,10 +38,6 @@ repositories:
   task-manager:
     type: git
     url: git@github.com:robotics-88/task-manager.git
-    version: main
-  vegetation:
-    type: git
-    url: git@github.com:robotics-88/vegetation.git
     version: main
   vehicle-launch:
     type: git
