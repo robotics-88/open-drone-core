@@ -15,14 +15,14 @@ repositories:
     type: git
     url: git@github.com:robotics-88/fast_lio_lc.git
     version: master
-  faster-lio:
-    type: git
-    url: git@github.com:robotics-88/faster-lio.git
-    version: main
   image-segment:
     type: git
     url: git@github.com:robotics-88/image-segment.git
     version: main
+  mavros:
+    type: git
+    url: git@github.com:robotics-88/mavros.git
+    version: master
   monarch:
     type: git
     url: git@github.com:robotics-88/monarch.git

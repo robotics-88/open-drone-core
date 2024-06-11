@@ -11,10 +11,6 @@ repositories:
     type: git
     url: git@github.com:robotics-88/range-data-to-mavros.git
     version: main
-  elevation_mapping:
-    type: git
-    url: git@github.com:ANYbotics/elevation_mapping.git
-    version: master
   exploration:
     type: git
     url: git@github.com:robotics-88/exploration.git
@@ -23,25 +19,13 @@ repositories:
     type: git
     url: git@github.com:robotics-88/fast_lio_lc.git
     version: master
-  faster-lio:
-    type: git
-    url: git@github.com:robotics-88/faster-lio.git
-    version: main
   image-segment:
     type: git
     url: git@github.com:robotics-88/image-segment.git
     version: main
-  kindr:
+  mavros:
     type: git
-    url: git@github.com:anybotics/kindr.git
-    version: master
-  kindr_ros:
-    type: git
-    url: git@github.com:ANYbotics/kindr_ros.git
-    version: master
-  message_logger:
-    type: git
-    url: git@github.com:ANYbotics/message_logger.git
+    url: git@github.com:robotics-88/mavros.git
     version: master
   monarch:
     type: git
