@@ -14,8 +14,8 @@ cd ~/src/
 git clone git@github.com:robotics-88/distal.git
 ```
 
-## Install dependencies
-Run the `install_deps.sh` script.
+## Install dependencies and set up workspace
+Run the `setup_workspace.sh` script.
 
 ## Workspace setup for simulation
 ```
