@@ -7,6 +7,7 @@ Codebase for Robotics 88 drone/sim ROS packages.
 mkdir -p ~/src/
 cd ~/src/
 git clone git@github.com:robotics-88/distal.git
+cd distal
 ```
 
 ### Install dependencies and set up workspace
