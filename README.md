@@ -2,23 +2,23 @@
 
 Codebase for Robotics 88 drone/sim ROS packages.
 
-## Clone repository into `src`
+### Clone repository into `src`
 ```
 mkdir -p ~/src/
 cd ~/src/
 git clone git@github.com:robotics-88/distal.git
 ```
 
-## Install dependencies and set up workspace
+### Install dependencies and set up workspace
 Run the `setup_workspace.sh` script.
 
-## Build
+### Build
 ```
 catkin build
 ```
-Building may take a few tries before it succeeds. <TODO: Add link to Mid360/Livox setup doc.> On Decco, you may want to add *-j4* as an argument after `catkin build`, because sometimes the Orin overloads and building is slower if you don't restrict the number of jobs.
+Building may take a few tries before it succeeds. <TODO: Add link to Mid360/Livox setup doc.> On Decco, you may want to add `-j4` as an argument after `catkin build`, because sometimes the Orin overloads and building is slower if you don't restrict the number of jobs.
 
-## Running the code
+### Running the code
 Sim:
 ```
 roslaunch vehicle_launch decco.launch simulate:=true slam_type:=0
@@ -29,14 +29,14 @@ roslaunch vehicle_launch decco.launch
 ```
 You can of course add whatever arguments are available in decco launch in addition. If you get RLException, try again in a new bash terminal window (so that the .bashrc sources the environment setup variables for this ROS workspace).
 
-## PRs
+### PRs
 When creating a multi-repo PR, create a vcs file for those testing to quickly set their workspace so all repos are on the correct branch. Because github doesn't like .repos, and vcs doesn't care about the extension, name it with extension `.txt`. The file should only list those repos required for the PR. One quick way to do this is, in your workspace with all repos on the PR branches, run:
 
 `vcs export > prname.txt`
 
 Then delete from the file any repos not changed by the PR.
 
-## vcstool tips
+### vcstool tips
 
 [vcstool](https://github.com/dirk-thomas/vcstool) helps to track a multirepo workspace. Frequently used commands:
 
