@@ -26,6 +26,7 @@ if [ "$input" == "s" ]; then
     vcs import < simulation.repos
 elif [ "$input" == "d" ]; then
     vcs import < decco.repos
+    catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
 fi
 
 cd ..
