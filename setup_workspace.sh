@@ -29,6 +29,8 @@ elif [ "$input" == "d" ]; then
     catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
 fi
 
+sudo ./mavros/mavros/scripts/install_geographiclib_datasets.sh
+
 cd ..
 
 rosdep install --from-paths src --ignore-src -r -y
