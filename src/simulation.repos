@@ -1,4 +1,8 @@
 repositories:
+  airsim-ROS-wrapper:
+    type: git
+    url: git@github.com:robotics-88/airsim-mavros-wrapper.git
+    version: main
   bag_recorder:
     type: git
     url: git@github.com:robotics-88/bag_recorder.git
@@ -15,13 +19,17 @@ repositories:
     type: git
     url: git@github.com:robotics-88/fast_lio_lc.git
     version: master
+  image-segment:
+    type: git
+    url: git@github.com:robotics-88/image-segment.git
+    version: main
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
     version: master
-  path-to-mavros:
+  path-manager:
     type: git
-    url: git@github.com:robotics-88/path-to-mavros.git
+    url: git@github.com:robotics-88/path-manager.git
     version: main
   pcl-analysis:
     type: git
@@ -31,6 +39,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
     version: main
+  rs_to_velodyne:
+    type: git
+    url: git@github.com:robotics-88/rs_to_velodyne.git
+    version: master
   slam:
     type: git
     url: git@github.com:robotics-88/slam.git
@@ -38,6 +50,10 @@ repositories:
   task-manager:
     type: git
     url: git@github.com:robotics-88/task-manager.git
+    version: main
+  vegetation:
+    type: git
+    url: git@github.com:robotics-88/vegetation.git
     version: main
   vehicle-launch:
     type: git
