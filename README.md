@@ -19,7 +19,7 @@ Run
 ```
 catkin build
 ```
-Building may take a few tries before it succeeds. <TODO: Add link to Mid360/Livox setup doc.> On Decco, you may want to add `-j4` as an argument after `catkin build`, because sometimes the Orin overloads and building is slower if you don't restrict the number of jobs.
+On Decco, you may want to add `-j4` as an argument after `catkin build`, because sometimes the Orin overloads and building is slower if you don't restrict the number of jobs.
 
 ### Running the code
 Sim:
