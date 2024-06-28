@@ -74,5 +74,6 @@
         "cfenv": "cpp",
         "future": "cpp",
         "geometry": "cpp"
-    }
+    },
+    "search.useIgnoreFiles": false
 }
