@@ -1,0 +1,21 @@
+services:
+  distal:
+    network_mode: host
+    build: .
+    command: sleep infinity
+    environment:
+      - DISPLAY=:1
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - .:/workspaces/distal
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+    # Stuff for GPU usage
+    devices:
+      - /dev/dri:/dev/dri
+    # runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]

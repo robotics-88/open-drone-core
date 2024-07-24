@@ -73,7 +73,9 @@
         "unordered_set": "cpp",
         "cfenv": "cpp",
         "future": "cpp",
-        "geometry": "cpp"
+        "geometry": "cpp",
+        "shared_mutex": "cpp"
     },
-    "search.useIgnoreFiles": false
+    "search.useIgnoreFiles": false,
+    "cmake.sourceDirectory": "/home/gus/src/distal/build_backup/catkin_tools_prebuild"
 }
