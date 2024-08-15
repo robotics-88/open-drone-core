@@ -1,5 +1,5 @@
 repositories:
-  airsim-ROS-wrapper:
+  airsim-mavros-wrapper:
     type: git
     url: git@github.com:robotics-88/airsim-mavros-wrapper.git
     version: feature/ros2
