@@ -4,9 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/ros/noetic/**",
                 "/usr/include/eigen3",
-                "/usr/include/pcl-1.10"
+                "/usr/include/pcl-1.10",
+                "/opt/ros/foxy/**"
             ],
             "defines": [],
             "compilerPath": "/usr/lib/ccache/clang",

@@ -15,9 +15,11 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 sudo apt-get update
 sudo apt-get install python3-vcstool
 
+cd ..
+
 catkin init
 
-echo "source /home/$USER/src/distal/devel/setup.bash --extend" >> /home/$USER/.bashrc
+echo "source /home/$USER/src/distal_ros2/devel/setup.bash --extend" >> /home/$USER/.bashrc
 echo "source /home/$USER/src/ws_livox/devel/setup.bash --extend" >> /home/$USER/.bashrc
 
 cd src
