@@ -4,6 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/../ws_livox/**",
                 "/usr/include/eigen3",
                 "/usr/include/pcl-1.10",
                 "/opt/ros/foxy/**"
