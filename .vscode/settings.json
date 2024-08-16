@@ -76,6 +76,5 @@
         "geometry": "cpp",
         "shared_mutex": "cpp"
     },
-    "search.useIgnoreFiles": false,
-    "cmake.sourceDirectory": "/home/gus/src/distal/build_backup/catkin_tools_prebuild"
+    "search.useIgnoreFiles": false
 }
