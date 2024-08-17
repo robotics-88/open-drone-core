@@ -1,7 +1,6 @@
 FROM osrf/ros:humble-desktop-full
 
 # Deps
-
 RUN sudo apt update
 RUN sudo apt install -y ssh-client iputils-ping iproute2
 
@@ -35,7 +34,7 @@ RUN git clone https://github.com/Livox-SDK/Livox-SDK2.git && \
 
 RUN sudo rm -rf /livox_sdk
 
-# Build livox_ros_driver2
+# Install livox_ros_driver2
 WORKDIR /livox_ws
 RUN /bin/bash -c " \
     source /opt/ros/humble/setup.bash && \
@@ -45,6 +44,15 @@ RUN /bin/bash -c " \
     cd src/livox_ros_driver2 && \
     ./build.sh humble"
 
+# Update pcl_ros, since its distro release is broken
+WORKDIR /pcl_ros_ws/src
+RUN git clone https://github.com/ros-perception/perception_pcl.git --branch humble
+WORKDIR /pcl_ros_ws
+RUN /bin/bash -c " \
+    source /opt/ros/humble/setup.bash && \
+    rosdep install --from-paths src -y --ignore-src && \
+    colcon build"
+
 # Install distal deps
 COPY ./src/ /setup/src/
 WORKDIR /setup/
@@ -53,7 +61,11 @@ RUN /bin/bash -c "source /livox_ws/install/setup.bash && \
 RUN /bin/bash -c "sudo ./src/mavros/mavros/scripts/install_geographiclib_datasets.sh"
 RUN sudo rm -rf /setup
 
+# Remove pcl_ros installation since we are building from source
+RUN sudo apt-get remove -y ros-humble-pcl-ros
+
 # Set up environment
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-RUN echo "source /distal_ws/install/setup.bash" >> ~/.bashrc
-RUN echo "source /livox_ws/install/setup.bash" >> ~/.bashrc
+RUN echo "source /distal_ws/install/setup.bash --extend" >> ~/.bashrc
+RUN echo "source /livox_ws/install/setup.bash --extend" >> ~/.bashrc
+RUN echo "source /pcl_ros_ws/install/setup.bash --extend" >> ~/.bashrc

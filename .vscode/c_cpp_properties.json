@@ -4,16 +4,17 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/livox_ws/**",
+                "/livox_ws/install/**",
+                "/pcl_ros_ws/install/**",
                 "/usr/include/eigen3",
                 "/usr/include/pcl-1.12",
-                "/opt/ros/humble/**"
+                "/opt/ros/humble/include/**"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "gcc-x64",
+            "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": []
         }
     ],
