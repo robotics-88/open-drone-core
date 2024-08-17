@@ -1,14 +1,26 @@
 services:
   distal:
     network_mode: host
-    build: .
+    build:
+      context: .
+      args:
+        USER_ID: ${LOCAL_UID}
+        GROUP_ID: ${LOCAL_GID}
+        USER_NAME: ${LOCAL_USER_NAME}
+        GROUP_NAME: ${LOCAL_GROUP_NAME}
     command: sleep infinity
     environment:
+      - LOCAL_UID=${LOCAL_UID}
+      - LOCAL_GID=${LOCAL_GID}
+      - LOCAL_USER_NAME=${LOCAL_USER_NAME}
+      - LOCAL_GROUP_NAME=${LOCAL_GROUP_NAME}
       - DISPLAY=:1
       - QT_X11_NO_MITSHM=1
     volumes:
-      - .:/workspaces/distal
+      - .:/distal_ws:cached
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
 
     # Stuff for GPU usage
     devices:

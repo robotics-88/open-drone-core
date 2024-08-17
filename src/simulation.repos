@@ -1,25 +1,13 @@
 repositories:
-  airsim-mavros-wrapper:
-    type: git
-    url: git@github.com:robotics-88/airsim-mavros-wrapper.git
-    version: feature/ros2
-  bag_recorder:
-    type: git
-    url: git@github.com:robotics-88/bag_recorder.git
-    version: feature/ros2
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
-    version: feature/ros2
+    version: feature/humble
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
-    version: feature/ros2
-  rs_to_velodyne:
-    type: git
-    url: git@github.com:robotics-88/rs_to_velodyne.git
-    version: feature/ros2
+    version: feature/humble
   vehicle-launch:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git
-    version: feature/ros2
+    version: feature/humble

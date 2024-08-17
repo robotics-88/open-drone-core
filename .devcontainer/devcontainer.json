@@ -4,6 +4,16 @@
 	"name": "Distal Workspace",
 	"dockerComposeFile": "../compose.yml",
 	"service": "distal",
-	"workspaceFolder": "/workspaces/distal",
-	"shutdownAction": "stopCompose"
+	"workspaceFolder": "/distal_ws",
+	"shutdownAction": "stopCompose",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"ms-azuretools.vscode-docker",
+				"p1c2u.docker-compose",
+				"formulahendry.docker-extension-pack"
+			]
+		}
+	}
 }

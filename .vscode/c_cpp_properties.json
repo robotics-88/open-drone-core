@@ -4,16 +4,16 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/../ws_livox/**",
+                "/livox_ws/**",
                 "/usr/include/eigen3",
-                "/usr/include/pcl-1.10",
-                "/opt/ros/foxy/**"
+                "/usr/include/pcl-1.12",
+                "/opt/ros/humble/**"
             ],
             "defines": [],
-            "compilerPath": "/usr/lib/ccache/clang",
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-clang-x64",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
             "compilerArgs": []
         }
     ],
