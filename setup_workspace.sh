@@ -9,8 +9,12 @@ if [ "$input" != "s" ] && [ "$input" != "d" ]; then
     exit 1
 fi
 
+pushd src
+
 if [ "$input" == "s" ]; then
     vcs import < simulation.repos
 elif [ "$input" == "d" ]; then
     vcs import < decco.repos
 fi
+
+popd

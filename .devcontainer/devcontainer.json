@@ -12,7 +12,8 @@
 				"ms-vscode.cpptools-extension-pack",
 				"ms-azuretools.vscode-docker",
 				"p1c2u.docker-compose",
-				"formulahendry.docker-extension-pack"
+				"formulahendry.docker-extension-pack",
+				"donjayamanne.githistory"
 			]
 		}
 	}
