@@ -69,3 +69,4 @@ RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /distal_ws/install/setup.bash --extend" >> ~/.bashrc
 RUN echo "source /livox_ws/install/setup.bash --extend" >> ~/.bashrc
 RUN echo "source /pcl_ros_ws/install/setup.bash --extend" >> ~/.bashrc
+RUN echo "export AIRSIM_DIR=\"/Colosseum\"" >> ~/.bashrc
