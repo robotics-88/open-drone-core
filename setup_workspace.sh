@@ -18,3 +18,5 @@ elif [ "$input" == "d" ]; then
 fi
 
 popd
+
+rosdep install --from-paths src -y --ignore-src
