@@ -1,4 +1,8 @@
 repositories:
+  airsim-mavros-wrapper:
+    type: git
+    url: git@github.com:robotics-88/airsim-mavros-wrapper.git
+    version: feature/humble
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
@@ -6,6 +10,10 @@ repositories:
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
+    version: feature/humble
+  rs_to_velodyne:
+    type: git
+    url: git@github.com:robotics-88/rs_to_velodyne.git
     version: feature/humble
   task-manager:
     type: git
