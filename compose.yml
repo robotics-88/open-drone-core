@@ -14,6 +14,7 @@ services:
       - LOCAL_GID=${LOCAL_GID}
       - LOCAL_USER_NAME=${LOCAL_USER_NAME}
       - LOCAL_GROUP_NAME=${LOCAL_GROUP_NAME}
+      - USER=${USER}
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
     volumes:
