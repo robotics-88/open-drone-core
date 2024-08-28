@@ -15,6 +15,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/rs_to_velodyne.git
     version: feature/humble
+  seek-thermal:
+    type: git
+    url: git@github.com:robotics-88/seek-thermal.git
+    version: feature/humble
   task-manager:
     type: git
     url: git@github.com:robotics-88/task-manager.git
