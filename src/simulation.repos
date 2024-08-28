@@ -19,6 +19,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/task-manager.git
     version: feature/humble
+  thermal-pipeline:
+    type: git
+    url: git@github.com:robotics-88/thermal-pipeline.git
+    version: feature/humble
   vehicle-launch:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git

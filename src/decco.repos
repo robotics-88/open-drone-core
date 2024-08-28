@@ -43,3 +43,7 @@ repositories:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git
     version: main
+  image-to-v4l2loopback:
+    type: git
+    url: github.com:robotics-88/image_to_v4l2loopback_ros2.git
+    version: main
