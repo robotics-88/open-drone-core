@@ -1,6 +1,7 @@
 services:
   distal:
     network_mode: host
+    privileged: true
     build:
       context: .
       args:
@@ -19,10 +20,11 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - .:/distal_ws:cached
-      - ../Colosseum/:/Colosseum/
+      - ../Colosseum:/Colosseum
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro
+      - /dev:/dev
 
     # Stuff for GPU usage
     devices:
