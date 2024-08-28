@@ -18,6 +18,9 @@ repositories:
   slam:
     type: git
     url: git@github.com:robotics-88/slam.git
+  seek-thermal:
+    type: git
+    url: git@github.com:robotics-88/seek-thermal.git
     version: feature/humble
   task-manager:
     type: git
