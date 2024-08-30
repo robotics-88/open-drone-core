@@ -25,5 +25,5 @@ repositories:
     version: feature/humble
   image-to-v4l2loopback:
     type: git
-    url: github.com:robotics-88/image_to_v4l2loopback_ros2.git
+    url: git@github.com:robotics-88/image_to_v4l2loopback_ros2.git
     version: main
