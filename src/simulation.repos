@@ -11,6 +11,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/mavros.git
     version: feature/humble
+  path-manager:
+    type: git
+    url: git@github.com:robotics-88/path-manager.git
+    version: feature/humble
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
