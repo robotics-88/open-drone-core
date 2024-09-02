@@ -7,6 +7,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/exploration.git
     version: feature/humble
+  fast_lio_lc:
+    type: git
+    url: git@github.com:robotics-88/fast_lio_lc.git
+    version: feature/humble
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
