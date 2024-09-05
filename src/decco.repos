@@ -1,29 +1,49 @@
 repositories:
+  bag_recorder:
+    type: git
+    url: git@github.com:robotics-88/bag_recorder.git
+    version: feature/humble
   exploration:
     type: git
     url: git@github.com:robotics-88/exploration.git
     version: feature/humble
+  image_to_v4l2loopback_ros2:
+    type: git
+    url: git@github.com:robotics-88/image_to_v4l2loopback_ros2.git
+    version: main
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
+    version: feature/humble
+  path-manager:
+    type: git
+    url: git@github.com:robotics-88/path-manager.git
     version: feature/humble
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
     version: feature/humble
+  seek-thermal:
+    type: git
+    url: git@github.com:robotics-88/seek-thermal.git
+    version: feature/humble
   slam:
     type: git
     url: git@github.com:robotics-88/slam.git
+    version: feature/humble
+  slam-ros2:
+    type: git
+    url: git@github.com:robotics-88/slam-ros2.git
     version: feature/humble
   task-manager:
     type: git
     url: git@github.com:robotics-88/task-manager.git
     version: feature/humble
+  thermal-pipeline:
+    type: git
+    url: git@github.com:robotics-88/thermal-pipeline.git
+    version: feature/humble
   vehicle-launch:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git
     version: feature/humble
-  image-to-v4l2loopback:
-    type: git
-    url: git@github.com:robotics-88/image_to_v4l2loopback_ros2.git
-    version: main
