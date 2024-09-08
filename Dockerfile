@@ -59,6 +59,7 @@ RUN /bin/bash -c " \
 COPY ./src/ /setup/src/
 COPY ./assets/ /setup/
 WORKDIR /setup/
+RUN sudo apt update
 RUN /bin/bash -c "source /livox_ws/install/setup.bash && \
     rosdep install --from-paths src -y --ignore-src"
 RUN /bin/bash -c "sudo ./src/mavros/mavros/scripts/install_geographiclib_datasets.sh"
