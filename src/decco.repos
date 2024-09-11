@@ -1,7 +1,7 @@
 repositories:
-  bag_recorder:
+  bag_recorder_2:
     type: git
-    url: git@github.com:robotics-88/bag_recorder.git
+    url: git@github.com:robotics-88/bag_recorder_2.git
     version: feature/humble
   exploration:
     type: git
