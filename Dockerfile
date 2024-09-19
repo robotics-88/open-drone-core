@@ -3,7 +3,7 @@ FROM osrf/ros:humble-desktop-full
 # Deps
 RUN sudo apt update
 # RUN sudo mv /var/lib/dpkg/info/udev.postinst /var/lib/dpkg/info/udev.postinst.backup
-RUN sudo apt install -y ssh-client iputils-ping iproute2 udev unzip
+RUN sudo apt install -y ssh-client iputils-ping iproute2 udev unzip bash-completion
 # RUN sudo mv /var/lib/dpkg/info/udev.postinst.backup /var/lib/dpkg/info/udev.postinst
 
 # User stuff
@@ -66,5 +66,7 @@ RUN sudo rm -rf /setup/src/
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /distal_ws/install/setup.bash --extend" >> ~/.bashrc
 RUN echo "source /livox_ws/install/setup.bash --extend" >> ~/.bashrc
+RUN echo "source /usr/share/bash-completion/bash_completion" >> /home/$USER_NAME/.bashrc
 RUN echo "export AIRSIM_DIR=\"/Colosseum\"" >> ~/.bashrc
 RUN echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
+RUN git config --global core.editor "code --wait"
