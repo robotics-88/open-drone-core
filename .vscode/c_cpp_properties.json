@@ -5,7 +5,6 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/livox_ws/install/**",
-                "/pcl_ros_ws/install/**",
                 "/usr/include/eigen3",
                 "/usr/include/pcl-1.12",
                 "/opt/ros/humble/include/**"
