@@ -17,4 +17,4 @@ fi
 
 popd
 
-#rosdep install --from-paths src -y --ignore-src
+rosdep install --from-paths src -y --ignore-src
