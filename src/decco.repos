@@ -23,6 +23,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/path-manager.git
     version: feature/humble
+  pcl-analysis:
+    type: git
+    url: git@github.com:robotics-88/pcl-analysis.git
+    version: feature/humble
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
