@@ -2,15 +2,15 @@ repositories:
   airsim-mavros-wrapper:
     type: git
     url: git@github.com:robotics-88/airsim-mavros-wrapper.git
-    version: feature/humble
+    version: main
   bag_recorder_2:
     type: git
     url: git@github.com:robotics-88/bag_recorder_2.git
-    version: feature/humble
+    version: main
   exploration:
     type: git
     url: git@github.com:robotics-88/exploration.git
-    version: feature/humble
+    version: main
   fast_lio_lc:
     type: git
     url: git@github.com:robotics-88/fast_lio_lc.git
@@ -18,23 +18,23 @@ repositories:
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
-    version: feature/humble
+    version: ros2
   path-manager:
     type: git
     url: git@github.com:robotics-88/path-manager.git
-    version: feature/humble
+    version: main
   pcl-analysis:
     type: git
     url: git@github.com:robotics-88/pcl-analysis.git
-    version: feature/humble
+    version: main
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
-    version: feature/humble
+    version: main
   rs_to_velodyne:
     type: git
     url: git@github.com:robotics-88/rs_to_velodyne.git
-    version: feature/humble
+    version: master
   seek-thermal:
     type: git
     url: git@github.com:robotics-88/seek-thermal.git
@@ -46,16 +46,20 @@ repositories:
   slam:
     type: git
     url: git@github.com:robotics-88/slam.git
-    version: feature/humble
+    version: main
+  slam-ros2:
+    type: git
+    url: git@github.com:robotics-88/slam-ros2.git
+    version: ros2
   task-manager:
     type: git
     url: git@github.com:robotics-88/task-manager.git
-    version: feature/humble
+    version: main
   thermal-pipeline:
     type: git
     url: git@github.com:robotics-88/thermal-pipeline.git
-    version: feature/humble
+    version: main
   vehicle-launch:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git
-    version: feature/humble
+    version: main
