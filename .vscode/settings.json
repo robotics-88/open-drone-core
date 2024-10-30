@@ -84,7 +84,8 @@
         "coroutine": "cpp",
         "source_location": "cpp",
         "core": "cpp",
-        "specialfunctions": "cpp"
+        "specialfunctions": "cpp",
+        "span": "cpp"
     },
     "search.useIgnoreFiles": false,
     "python.autoComplete.extraPaths": [
@@ -106,5 +107,6 @@
         "/home/erinpc/src/ros2_distal/distal/install/mavros/lib/python3.8/site-packages",
         "/home/erinpc/src/ros2_distal/distal/install/mavros_msgs/lib/python3.8/site-packages",
         "/opt/ros/foxy/lib/python3.8/site-packages"
-    ]
+    ],
+    "cmake.sourceDirectory": "/home/gus/src/distal/src/airsim-mavros-wrapper"
 }

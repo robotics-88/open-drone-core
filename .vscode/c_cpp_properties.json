@@ -5,8 +5,10 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/livox_ws/install/**",
+                "${HOME}/src/livox_ws/**",
                 "/usr/include/eigen3",
                 "/usr/include/pcl-1.12",
+                "/usr/include/opencv4",
                 "/opt/ros/humble/include/**"
             ],
             "defines": [],
