@@ -7,14 +7,18 @@ repositories:
     type: git
     url: git@github.com:robotics-88/bag_recorder_2.git
     version: main
-  fast-lio2:
-    type: git
-    url: git@github.com:robotics-88/fast-lio2.git
-    version: main
   exploration:
     type: git
     url: git@github.com:robotics-88/exploration.git
     version: main
+  fast-lio2:
+    type: git
+    url: git@github.com:robotics-88/fast-lio2.git
+    version: main
+  fast_lio_lc:
+    type: git
+    url: git@github.com:robotics-88/fast_lio_lc.git
+    version: feature/humble
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
@@ -34,11 +38,7 @@ repositories:
   post-flight:
     type: git
     url: git@github.com:robotics-88/post-flight.git
-    version: main
-  range-data-to-mavros:
-    type: git
-    url: git@github.com:robotics-88/range-data-to-mavros.git
-    version: main
+    version: feature/humble
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
@@ -47,6 +47,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/rs_to_velodyne.git
     version: master
+  rviz_satellite:
+    type: git
+    url: git@github.com:nobleo/rviz_satellite.git
+    version: main
   seek-thermal:
     type: git
     url: git@github.com:robotics-88/seek-thermal.git
