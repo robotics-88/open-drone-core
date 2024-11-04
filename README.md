@@ -4,9 +4,9 @@ Codebase for Robotics 88 drone/sim ROS packages.
 
 ### Clone repository into `src`
 ```
-mkdir -p ~/src/
+mkdir -p ~/src/distal_ros2
 cd ~/src/
-git clone git@github.com:robotics-88/distal.git
+git clone git@github.com:robotics-88/distal.git distal_ros2
 cd distal
 ```
 
@@ -18,18 +18,17 @@ Run
 
 ### Build
 ```
-catkin build
+colcon build
 ```
-On Decco, you may want to add `-j4` as an argument after `catkin build`, because sometimes the Orin overloads and building is slower if you don't restrict the number of jobs.
 
 ### Running the code
 Sim:
 ```
-roslaunch vehicle_launch decco.launch simulate:=true slam_type:=0
+ros2 launch vehicle_launch decco.xml simulate:=true
 ```
 Decco:
 ```
-roslaunch vehicle_launch decco.launch
+ros2 launch vehicle_launch decco.xml
 ```
 You can of course add whatever arguments are available in decco launch in addition. If you get RLException, try again in a new bash terminal window (so that the .bashrc sources the environment setup variables for this ROS workspace).
 

@@ -1,0 +1,37 @@
+services:
+  distal:
+    network_mode: host
+    privileged: true
+    build:
+      context: .
+      args:
+        USER_ID: ${LOCAL_UID}
+        GROUP_ID: ${LOCAL_GID}
+        USER_NAME: ${LOCAL_USER_NAME}
+        GROUP_NAME: ${LOCAL_GROUP_NAME}
+    command: sleep infinity
+    environment:
+      - LOCAL_UID=${LOCAL_UID}
+      - LOCAL_GID=${LOCAL_GID}
+      - LOCAL_USER_NAME=${LOCAL_USER_NAME}
+      - LOCAL_GROUP_NAME=${LOCAL_GROUP_NAME}
+      - USER=${USER}
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - .:/distal_ws:cached
+      - ../Colosseum:/Colosseum
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /dev:/dev
+
+    # Stuff for GPU usage
+    devices:
+      - /dev/dri:/dev/dri
+    # runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]

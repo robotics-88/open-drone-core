@@ -4,15 +4,18 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/ros/noetic/**",
+                "/livox_ws/install/**",
+                "${HOME}/src/livox_ws/**",
                 "/usr/include/eigen3",
-                "/usr/include/pcl-1.10"
+                "/usr/include/pcl-1.12",
+                "/usr/include/opencv4",
+                "/opt/ros/humble/include/**"
             ],
             "defines": [],
-            "compilerPath": "/usr/lib/ccache/clang",
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-clang-x64",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": []
         }
     ],

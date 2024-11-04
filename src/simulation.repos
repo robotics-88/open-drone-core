@@ -1,31 +1,35 @@
 repositories:
-  airsim-ROS-wrapper:
+  airsim-mavros-wrapper:
     type: git
     url: git@github.com:robotics-88/airsim-mavros-wrapper.git
     version: main
-  bag_recorder:
+  bag_recorder_2:
     type: git
-    url: git@github.com:robotics-88/bag_recorder.git
-    version: master
+    url: git@github.com:robotics-88/bag_recorder_2.git
+    version: main
   exploration:
     type: git
     url: git@github.com:robotics-88/exploration.git
     version: main
+  fast-lio2:
+    type: git
+    url: git@github.com:robotics-88/fast-lio2.git
+    version: main
   fast_lio_lc:
     type: git
     url: git@github.com:robotics-88/fast_lio_lc.git
-    version: master
-  image-segment:
-    type: git
-    url: git@github.com:robotics-88/image-segment.git
-    version: main
+    version: feature/humble
   mavros:
     type: git
     url: git@github.com:robotics-88/mavros.git
-    version: master
+    version: ros2
   path-manager:
     type: git
     url: git@github.com:robotics-88/path-manager.git
+    version: main
+  path-planner:
+    type: git
+    url: git@github.com:robotics-88/path-planner.git
     version: main
   pcl-analysis:
     type: git
@@ -34,11 +38,7 @@ repositories:
   post-flight:
     type: git
     url: git@github.com:robotics-88/post-flight.git
-    version: main
-  range-data-to-mavros:
-    type: git
-    url: git@github.com:robotics-88/range-data-to-mavros.git
-    version: main
+    version: feature/humble
   ros-messages-88:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
@@ -50,14 +50,14 @@ repositories:
   rviz_satellite:
     type: git
     url: git@github.com:nobleo/rviz_satellite.git
-    version: ros1
+    version: main
   seek-thermal:
     type: git
     url: git@github.com:robotics-88/seek-thermal.git
-    version: main
-  slam:
+    version: feature/humble
+  simple_opencv:
     type: git
-    url: git@github.com:robotics-88/slam.git
+    url: git@github.com:robotics-88/simple_opencv.git
     version: main
   task-manager:
     type: git
@@ -66,10 +66,6 @@ repositories:
   thermal-pipeline:
     type: git
     url: git@github.com:robotics-88/thermal-pipeline.git
-    version: main
-  seek-thermal:
-    type: git
-    url: git@github.com:robotics-88/seek-thermal.git
     version: main
   vehicle-launch:
     type: git
