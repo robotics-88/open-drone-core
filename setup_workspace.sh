@@ -65,14 +65,13 @@ cd ~/src/distal/src/mavros/mavros/scripts
 sudo ./install_geographiclib_datasets.sh
 
 # Install seek sdk
-
-cd ~/src/distal/src/
 if [ "$1" == "-s" ]; then
     SEEK_DIR="x86_64-linux-gnu"
 elif [ "$1" == "-d" ]; then
     SEEK_DIR="aarch64-linux-gnu"
 fi
 
+cd ~/src/distal/
 sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
     cd .. && \
     sudo unzip Seek_Thermal_SDK_4.4.2.20.zip && \
