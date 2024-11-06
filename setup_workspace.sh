@@ -94,4 +94,5 @@ fi
 
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 echo "source /home/$USER/src/livox_ros_driver2/install/setup.bash" >> ~/.bashrc
-echo "source /home/$USER/src/distal/install/setup.bash" >> ~/.bashrc\
+echo "source /home/$USER/src/distal/install/setup.bash" >> ~/.bashrc
+echo "export AIRSIM_DIR="/home/$USER/src/Colosseum"" >> ~/.bashrc
