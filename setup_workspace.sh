@@ -7,6 +7,10 @@ if [ -z "$1" ]
     exit 1
 fi
 
+# Create vars
+DISTAL_DIR="$HOME/src/distal"
+LIVOX_DIR="$HOME/src/livox_ros_driver2"
+
 # Generic deps
 sudo apt install autossh
 
@@ -27,7 +31,6 @@ sudo rosdep init
 rosdep update
 
 # Pull in repos
-DISTAL_DIR="$HOME/src/distal"
 cd $DISTAL_DIR/src/
 if [ "$1" == "-s" ]; then
     vcs import < simulation.repos
@@ -46,7 +49,6 @@ cd Livox-SDK2 && \
     sudo make install
 
 # Install Livox ROS driver
-LIVOX_DIR="$HOME/src/livox_ros_driver2"
 mkdir -p $LIVOX_DIR/src
 cd $LIVOX_DIR/src
 git clone https://github.com/Livox-SDK/livox_ros_driver2.git
