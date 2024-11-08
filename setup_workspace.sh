@@ -45,7 +45,8 @@ cd Livox-SDK2 && \
     sudo make install
 
 # Install Livox ROS driver
-mkdir -p ~/src/livox_ros_driver2/src
+LIVOX_DIR="/home/$USER/src/livox_ros_driver2"
+mkdir -p $LIVOX_DIR/src
 cd ~/src/livox_ros_driver2/src
 git clone https://github.com/Livox-SDK/livox_ros_driver2.git
 cd ~/src/livox_ros_driver2
@@ -57,11 +58,12 @@ cd ~/src/
 source livox_ros_driver2/install/setup.bash
 
 # Install general rosdeps
-cd ~/src/distal/
+DISTAL_DIR="/home/$USER/src/distal"
+cd $DISTAL_DIR
 rosdep install --from-paths src -y --ignore-src
 
 # Install geographiclib
-cd ~/src/distal/src/mavros/mavros/scripts
+cd $DISTAL_DIR/src/mavros/mavros/scripts
 sudo ./install_geographiclib_datasets.sh
 
 # Install seek sdk
@@ -71,7 +73,7 @@ elif [ "$1" == "-d" ]; then
     SEEK_DIR="aarch64-linux-gnu"
 fi
 
-cd ~/src/distal/
+cd $DISTAL_DIR
 sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
     cd .. && \
     sudo unzip Seek_Thermal_SDK_4.4.2.20.zip && \
@@ -83,7 +85,7 @@ sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
     rm Seek_Thermal_SDK_4.4.2.20.zip
 
 # Other config
-sudo cp ~/src/distal/src/vehicle-launch/config/99-r88.rules /etc/udev/rules.d/
+sudo $DISTAL_DIR/src/vehicle-launch/config/99-r88.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 sudo usermod -a -G dialout $USER
 
@@ -93,6 +95,9 @@ if [ "$1" == "-d" ]; then
 fi
 
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-echo "source /home/$USER/src/livox_ros_driver2/install/setup.bash" >> ~/.bashrc
-echo "source /home/$USER/src/distal/install/setup.bash" >> ~/.bashrc
-echo "export AIRSIM_DIR="/home/$USER/src/Colosseum"" >> ~/.bashrc
+echo "source $LIVOX_DIR/install/setup.bash" >> ~/.bashrc
+echo "source $DISTAL_DIR/install/setup.bash" >> ~/.bashrc
+
+if [ "$1" == "-s" ]; then
+    echo "export AIRSIM_DIR="/home/$USER/src/Colosseum"" >> ~/.bashrc
+fi
