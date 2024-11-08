@@ -27,7 +27,8 @@ sudo rosdep init
 rosdep update
 
 # Pull in repos
-cd ~/src/distal/src/
+DISTAL_DIR="$HOME/src/distal"
+cd $DISTAL_DIR/src/
 if [ "$1" == "-s" ]; then
     vcs import < simulation.repos
 elif [ "$1" == "-d" ]; then
@@ -35,7 +36,7 @@ elif [ "$1" == "-d" ]; then
 fi
 
 # Install Livox SDK
-cd ~/src/
+cd $HOME/src/
 git clone https://github.com/Livox-SDK/Livox-SDK2.git
 cd Livox-SDK2 && \
     mkdir build && \
@@ -45,20 +46,17 @@ cd Livox-SDK2 && \
     sudo make install
 
 # Install Livox ROS driver
-LIVOX_DIR="/home/$USER/src/livox_ros_driver2"
+LIVOX_DIR="$HOME/src/livox_ros_driver2"
 mkdir -p $LIVOX_DIR/src
-cd ~/src/livox_ros_driver2/src
+cd $LIVOX_DIR/src
 git clone https://github.com/Livox-SDK/livox_ros_driver2.git
-cd ~/src/livox_ros_driver2
+cd $LIVOX_DIR
 rosdep install --from-paths src -y --ignore-src
 cd src/livox_ros_driver2
 ./build.sh humble
-cd ~/src/
-
-source livox_ros_driver2/install/setup.bash
+source $LIVOX_DIR/install/setup.bash
 
 # Install general rosdeps
-DISTAL_DIR="/home/$USER/src/distal"
 cd $DISTAL_DIR
 rosdep install --from-paths src -y --ignore-src
 
@@ -94,10 +92,10 @@ if [ "$1" == "-d" ]; then
     sudo route add 192.168.1.12 eth0
 fi
 
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-echo "source $LIVOX_DIR/install/setup.bash" >> ~/.bashrc
-echo "source $DISTAL_DIR/install/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
+echo "source $LIVOX_DIR/install/setup.bash" >> $HOME/.bashrc
+echo "source $DISTAL_DIR/install/setup.bash" >> $HOME/.bashrc
 
 if [ "$1" == "-s" ]; then
-    echo "export AIRSIM_DIR="/home/$USER/src/Colosseum"" >> ~/.bashrc
+    echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
 fi
