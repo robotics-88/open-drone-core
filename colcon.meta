@@ -1,7 +1,7 @@
 names:
   # Task manager cannot use lld, for reasons I don't understand
   task_manager:
-    mixins: []
+    mixin: []
 
   # These must be compiled with GCC, for reasons I can't be bothered to determine right now
   rs_to_velodyne:
