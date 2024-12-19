@@ -1,0 +1,26 @@
+names:
+  # Task manager cannot use lld, for reasons I don't understand
+  task_manager:
+    mixins: []
+
+  # These must be compiled with GCC, for reasons I can't be bothered to determine right now
+  rs_to_velodyne:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_CXX_FLAGS=''"
+      - "-DCMAKE_C_FLAGS=''"
+  mavros:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_CXX_FLAGS=''"
+      - "-DCMAKE_C_FLAGS=''"
+  airsim_launch:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_CXX_FLAGS=''"
+      - "-DCMAKE_C_FLAGS=''"
+
+
