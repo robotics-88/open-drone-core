@@ -1,9 +1,9 @@
 build:
   cmake-args:
+    # These two cmake args could be replaced by the `clang` colcon mixin.
+    # See note below for why we don't do this yet.
     - "-DCMAKE_C_COMPILER=clang"
     - "-DCMAKE_CXX_COMPILER=clang++"
-    - "-DCMAKE_CXX_FLAGS='-fopenmp=libomp'"
-    - "-DCMAKE_C_FLAGS='-fopenmp=libomp'"
 
     # These three cmake args could be replaced by the `lld` colcon mixin
     # however I have not yet figured out a nice way to remove that mixin
