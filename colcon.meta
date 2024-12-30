@@ -1,5 +1,5 @@
 names:
-  # Task manager cannot use lld, for reasons I don't understand
+  # task_manager cannot use lld, unclear why
   task_manager:
     cmake-args:
       - "-DCMAKE_C_COMPILER=clang"
@@ -10,7 +10,7 @@ names:
       - "-DCMAKE_MODULE_LINKER_FLAGS=''"
       - "-DCMAKE_SHARED_LINKER_FLAGS=''"
 
-  # These must be compiled with GCC, for reasons I can't be bothered to determine right now
+  # rs_to_velodyne must be compiled with GCC because it uses `alignas` in an illegal way, which only GCC permits
   rs_to_velodyne:
     cmake-args:
       - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
@@ -20,6 +20,8 @@ names:
       - "-DCMAKE_EXE_LINKER_FLAGS=''"
       - "-DCMAKE_MODULE_LINKER_FLAGS=''"
       - "-DCMAKE_SHARED_LINKER_FLAGS=''"
+  
+  # These must be compiled with GCC, unclear why
   mavros:
     cmake-args:
       - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
