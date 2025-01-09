@@ -33,7 +33,7 @@ rosdep update
 # Pull in repos
 cd $DISTAL_DIR/src/
 if [ "$1" == "-s" ]; then
-    vcs import < simulation.repos
+    vcs import < privileged_developer.repos
 elif [ "$1" == "-d" ]; then
     vcs import < decco.repos
 fi
