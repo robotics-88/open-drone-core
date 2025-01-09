@@ -1,6 +1,19 @@
 # distal
 
 Codebase for Robotics 88 drone/sim ROS packages.
+### Install Dependencies
+```
+sudo apt install clang lld libomp-dev ccache git-lfs
+
+mkdir -p ~/.ccache
+touch ~/.ccache/ccache.conf
+echo "max_size = 10G" >> ~/.ccache/ccache.conf
+
+colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+colcon mixin update default
+
+git lfs install
+```
 
 ### Clone repository into `src`
 ```

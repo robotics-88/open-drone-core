@@ -1,0 +1,45 @@
+names:
+  # task_manager cannot use lld, unclear why
+  task_manager:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=clang"
+      - "-DCMAKE_CXX_COMPILER=clang++"
+      - "-DCMAKE_EXE_LINKER_FLAGS=''"
+      - "-DCMAKE_MODULE_LINKER_FLAGS=''"
+      - "-DCMAKE_SHARED_LINKER_FLAGS=''"
+
+  # rs_to_velodyne must be compiled with GCC because it uses `alignas` in an illegal way, which only GCC permits
+  rs_to_velodyne:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_EXE_LINKER_FLAGS=''"
+      - "-DCMAKE_MODULE_LINKER_FLAGS=''"
+      - "-DCMAKE_SHARED_LINKER_FLAGS=''"
+  
+  # These must be compiled with GCC, unclear why
+  # partial fix:
+  # - sudo apt install libomp-dev libc++-dev
+  # - "-DCMAKE_CXX_FLAGS='-fopenmp=libomp'"
+  # - "-DCMAKE_C_FLAGS='-fopenmp=libomp'"
+  mavros:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_EXE_LINKER_FLAGS=''"
+      - "-DCMAKE_MODULE_LINKER_FLAGS=''"
+      - "-DCMAKE_SHARED_LINKER_FLAGS=''"
+  mavros_extras:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_EXE_LINKER_FLAGS=''"
+      - "-DCMAKE_MODULE_LINKER_FLAGS=''"
+      - "-DCMAKE_SHARED_LINKER_FLAGS=''"
+  airsim_launch:
+    cmake-args:
+      - "-DCMAKE_C_COMPILER=/usr/bin/gcc"
+      - "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+      - "-DCMAKE_EXE_LINKER_FLAGS=''"
+      - "-DCMAKE_MODULE_LINKER_FLAGS=''"
+      - "-DCMAKE_SHARED_LINKER_FLAGS=''"

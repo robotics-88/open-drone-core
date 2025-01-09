@@ -1,0 +1,15 @@
+build:
+  cmake-args:
+    # These two cmake args could be replaced by the `clang` colcon mixin.
+    # See note below for why we don't do this yet.
+    - "-DCMAKE_C_COMPILER=clang"
+    - "-DCMAKE_CXX_COMPILER=clang++"
+
+    # These three cmake args could be replaced by the `lld` colcon mixin
+    # however I have not yet figured out a nice way to remove that mixin
+    # when compiling task manager, which does not play nice with lld
+    - "-DCMAKE_EXE_LINKER_FLAGS='-fuse-ld=lld'"
+    - "-DCMAKE_MODULE_LINKER_FLAGS='-fuse-ld=lld'"
+    - "-DCMAKE_SHARED_LINKER_FLAGS='-fuse-ld=lld'"
+  mixin:
+    - ccache
