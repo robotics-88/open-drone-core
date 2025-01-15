@@ -85,7 +85,7 @@ sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
     rm Seek_Thermal_SDK_4.4.2.20.zip
 
 # Other config
-sudo $DISTAL_DIR/src/vehicle-launch/config/99-r88.rules /etc/udev/rules.d/
+sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-r88.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 sudo usermod -a -G dialout $USER
 
