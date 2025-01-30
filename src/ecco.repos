@@ -3,18 +3,6 @@ repositories:
     type: git
     url: git@github.com:robotics-88/bag_recorder_2.git
     version: main
-  exploration:
-    type: git
-    url: git@github.com:robotics-88/exploration.git
-    version: main
-  fast-lio2:
-    type: git
-    url: git@github.com:robotics-88/fast-lio2.git
-    version: main
-  fast_lio_lc:
-    type: git
-    url: git@github.com:robotics-88/fast_lio_lc.git
-    version: feature/humble
   image_to_v4l2loopback_ros2:
     type: git
     url: git@github.com:robotics-88/image_to_v4l2loopback_ros2.git
@@ -26,18 +14,6 @@ repositories:
   opencv_cam:
     type: git
     url: git@github.com:robotics-88/opencv_cam.git
-    version: main
-  path-manager:
-    type: git
-    url: git@github.com:robotics-88/path-manager.git
-    version: main
-  path-planner:
-    type: git
-    url: git@github.com:robotics-88/path-planner.git
-    version: main
-  pcl-analysis:
-    type: git
-    url: git@github.com:robotics-88/pcl-analysis.git
     version: main
   ros2_shared:
     type: git

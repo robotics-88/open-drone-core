@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ -z "$1" ]
+if [[ -z "$1" ]]
   then
-    echo "Is this a simulation environment or Decco?"
-    echo "include '-s' for simulation or '-d' for Decco."
+    echo "Is this a sim, Decco, or Ecco?"
+    echo "include '-s' for simulation, '-d' for Decco, or '-e' for Ecco"
     exit 1
 fi
 
@@ -32,10 +32,13 @@ rosdep update
 
 # Pull in repos
 cd $DISTAL_DIR/src/
-if [ "$1" == "-s" ]; then
+if [[ "$1" == "-s" ]]; then
     vcs import < privileged_developer.repos
-elif [ "$1" == "-d" ]; then
+elif [[ "$1" == "-d" ]]; then
     vcs import < decco.repos
+fi
+elif [[ "$1" == "-e" ]]; then
+    vcs import < ecco.repos
 fi
 
 # Install Livox SDK
@@ -67,9 +70,9 @@ cd $DISTAL_DIR/src/mavros/mavros/scripts
 sudo ./install_geographiclib_datasets.sh
 
 # Install seek sdk
-if [ "$1" == "-s" ]; then
+if [[ "$1" == "-s" ]]; then
     SEEK_DIR="x86_64-linux-gnu"
-elif [ "$1" == "-d" ]; then
+elif [[ "$1" == "-d" || "$1" == "-e" ]]; then
     SEEK_DIR="aarch64-linux-gnu"
 fi
 
@@ -85,11 +88,16 @@ sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
     rm Seek_Thermal_SDK_4.4.2.20.zip
 
 # Other config
-sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-r88.rules /etc/udev/rules.d/
+if [[ "$1" == "-d" || "$1" == "-s" ]]; then
+    sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
+elif [[ "$1" == "-e" ]]; then
+    sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-ecco.rules /etc/udev/rules.d/
+fi
+
 sudo udevadm control --reload-rules && sudo udevadm trigger
 sudo usermod -a -G dialout $USER
 
-if [ "$1" == "-d" ]; then
+if [[ "$1" == "-d" ]]; then
     sudo nmcli con mod "Wired connection 1" ipv4.addresses "192.168.1.5/24" ipv4.gateway "192.168.1.1" ipv4.method "manual"
     sudo route add 192.168.1.12 eth0
 fi
@@ -98,6 +106,6 @@ echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
 echo "source $LIVOX_DIR/install/setup.bash" >> $HOME/.bashrc
 echo "source $DISTAL_DIR/install/setup.bash" >> $HOME/.bashrc
 
-if [ "$1" == "-s" ]; then
+if [[ "$1" == "-s" ]]; then
     echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
 fi
