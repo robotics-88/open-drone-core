@@ -67,22 +67,13 @@ cd $DISTAL_DIR/src/mavros/mavros/scripts
 sudo ./install_geographiclib_datasets.sh
 
 # Install seek sdk
+cd $DISTAL_DIR
 if [ "$1" == "-s" ]; then
-    SEEK_DIR="x86_64-linux-gnu"
+    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
 elif [ "$1" == "-d" ]; then
-    SEEK_DIR="aarch64-linux-gnu"
+    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
 fi
 
-cd $DISTAL_DIR
-sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
-    cd .. && \
-    sudo unzip Seek_Thermal_SDK_4.4.2.20.zip && \
-    sudo cp Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/lib/libseekcamera.so /usr/local/lib && \
-    sudo cp Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/lib/libseekcamera.so.4.4 /usr/local/lib && \
-    sudo cp -r Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/include/* /usr/local/include && \
-    sudo cp Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/driver/udev/10-seekthermal.rules /etc/udev/rules.d && \
-    sudo chmod u+x Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/bin/* && \
-    rm Seek_Thermal_SDK_4.4.2.20.zip
 
 # Other config
 sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-r88.rules /etc/udev/rules.d/
