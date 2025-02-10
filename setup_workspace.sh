@@ -50,6 +50,10 @@ elif [ "$1" == "-d" ]; then
     vcs import < decco.repos
 fi
 
+# Get sub-deps
+cd $DISTAL_DIR/src/fast-lio2
+git submodule update --init --recursive
+
 # Install Livox SDK
 cd $HOME/src/
 git clone https://github.com/Livox-SDK/Livox-SDK2.git
