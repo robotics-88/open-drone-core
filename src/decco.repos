@@ -11,10 +11,6 @@ repositories:
     type: git
     url: git@github.com:robotics-88/fast-lio2.git
     version: main
-  fast_lio_lc:
-    type: git
-    url: git@github.com:robotics-88/fast_lio_lc.git
-    version: feature/humble
   image_to_v4l2loopback_ros2:
     type: git
     url: git@github.com:robotics-88/image_to_v4l2loopback_ros2.git
@@ -23,6 +19,10 @@ repositories:
     type: git
     url: git@github.com:robotics-88/mavros.git
     version: ros2
+  opencv_cam:
+    type: git
+    url: git@github.com:robotics-88/opencv_cam.git
+    version: main
   path-manager:
     type: git
     url: git@github.com:robotics-88/path-manager.git
@@ -39,13 +39,13 @@ repositories:
     type: git
     url: git@github.com:robotics-88/ros-messages-88.git
     version: main
+  ros2_shared:
+    type: git
+    url: https://github.com/ptrmu/ros2_shared.git
+    version: master
   seek-thermal:
     type: git
     url: git@github.com:robotics-88/seek-thermal.git
-    version: feature/humble
-  simple_opencv:
-    type: git
-    url: git@github.com:robotics-88/simple_opencv.git
     version: main
   task-manager:
     type: git
@@ -58,4 +58,8 @@ repositories:
   vehicle-launch:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git
+    version: main
+  video-recorder:
+    type: git
+    url: git@github.com:robotics-88/video-recorder.git
     version: main
