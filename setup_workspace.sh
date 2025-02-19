@@ -49,6 +49,7 @@ if [ "$1" == "-s" ]; then
 elif [ "$1" == "-d" ]; then
     vcs import < decco.repos
 fi
+vcs pull
 
 # Get sub-deps
 cd $DISTAL_DIR/src/fast-lio2
