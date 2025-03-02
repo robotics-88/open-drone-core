@@ -30,6 +30,18 @@ sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensi
 sudo rosdep init
 rosdep update
 
+
+# Install clang compiler and other optimizations
+sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin
+colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+colcon mixin update default
+git lfs install
+
+# Fetch git lfs artifacts, if not present already
+cd $DISTAL_DIR
+git lfs fetch && git lfs pull
+
+
 # Pull in repos
 cd $DISTAL_DIR/src/
 if [[ "$1" == "-s" ]]; then
@@ -40,6 +52,11 @@ fi
 elif [[ "$1" == "-e" ]]; then
     vcs import < ecco.repos
 fi
+vcs pull
+
+# Get sub-deps
+cd $DISTAL_DIR/src/fast-lio2
+git submodule update --init --recursive
 
 # Install Livox SDK
 cd $HOME/src/
@@ -70,28 +87,24 @@ cd $DISTAL_DIR/src/mavros/mavros/scripts
 sudo ./install_geographiclib_datasets.sh
 
 # Install seek sdk
-if [[ "$1" == "-s" ]]; then
-    SEEK_DIR="x86_64-linux-gnu"
+cd $DISTAL_DIR
+if [ "$1" == "-s" ]; then
+    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
 elif [[ "$1" == "-d" || "$1" == "-e" ]]; then
-    SEEK_DIR="aarch64-linux-gnu"
+    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
 fi
 
-cd $DISTAL_DIR
-sudo cp assets/Seek_Thermal_SDK_4.4.2.20.zip .. && \
-    cd .. && \
-    sudo unzip Seek_Thermal_SDK_4.4.2.20.zip && \
-    sudo cp Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/lib/libseekcamera.so /usr/local/lib && \
-    sudo cp Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/lib/libseekcamera.so.4.4 /usr/local/lib && \
-    sudo cp -r Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/include/* /usr/local/include && \
-    sudo cp Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/driver/udev/10-seekthermal.rules /etc/udev/rules.d && \
-    sudo chmod u+x Seek_Thermal_SDK_4.4.2.20/$SEEK_DIR/bin/* && \
-    rm Seek_Thermal_SDK_4.4.2.20.zip
 
 # Other config
-if [[ "$1" == "-d" || "$1" == "-s" ]]; then
+if [[ "$1" == "-d"]]; then
     sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
+    sudo udevadm control --reload-rules && sudo udevadm trigger
+    sudo usermod -a -G dialout $USER
+    sudo nmcli con mod "Wired connection 1" ipv4.addresses "192.168.1.5/24" ipv4.gateway "192.168.1.1" ipv4.method "manual"
 elif [[ "$1" == "-e" ]]; then
     sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-ecco.rules /etc/udev/rules.d/
+    sudo udevadm control --reload-rules && sudo udevadm trigger
+    sudo usermod -a -G dialout $USER
 fi
 
 sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -99,7 +112,6 @@ sudo usermod -a -G dialout $USER
 
 if [[ "$1" == "-d" ]]; then
     sudo nmcli con mod "Wired connection 1" ipv4.addresses "192.168.1.5/24" ipv4.gateway "192.168.1.1" ipv4.method "manual"
-    sudo route add 192.168.1.12 eth0
 fi
 
 echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
