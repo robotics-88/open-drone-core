@@ -7,7 +7,7 @@ if [[ -z "$1" ]]
     exit 1
 fi
 
-# # Create vars
+# Create vars
 DISTAL_DIR="$HOME/src/distal"
 LIVOX_DIR="$HOME/src/livox_ros_driver2"
 
