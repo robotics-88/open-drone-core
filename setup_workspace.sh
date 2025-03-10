@@ -11,35 +11,35 @@ fi
 DISTAL_DIR="$HOME/src/distal"
 LIVOX_DIR="$HOME/src/livox_ros_driver2"
 
-# # Generic deps
-# sudo apt install autossh
+# Generic deps
+sudo apt install autossh
 
-# # Install ROS
-# sudo apt install software-properties-common
-# sudo add-apt-repository universe
-# sudo apt update && sudo apt install curl -y
-# sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-# echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+# Install ROS
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 
-# sudo apt update
-# sudo apt install ros-humble-desktop
+sudo apt update
+sudo apt install ros-humble-desktop
 
-# source /opt/ros/humble/setup.bash
+source /opt/ros/humble/setup.bash
 
-# sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensions
-# sudo rosdep init
-# rosdep update
+sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensions
+sudo rosdep init
+rosdep update
 
 
-# # Install clang compiler and other optimizations
-# sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin
-# colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
-# colcon mixin update default
-# git lfs install
+# Install clang compiler and other optimizations
+sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin
+colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+colcon mixin update default
+git lfs install
 
-# # Fetch git lfs artifacts, if not present already
-# cd $DISTAL_DIR
-# git lfs fetch && git lfs pull
+# Fetch git lfs artifacts, if not present already
+cd $DISTAL_DIR
+git lfs fetch && git lfs pull
 
 
 # Pull in repos
