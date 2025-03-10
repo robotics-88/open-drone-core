@@ -67,7 +67,3 @@ repositories:
     type: git
     url: git@github.com:robotics-88/vehicle-launch.git
     version: main
-  video-recorder:
-    type: git
-    url: git@github.com:robotics-88/video-recorder.git
-    version: main
