@@ -93,6 +93,7 @@ cd $DISTAL_DIR
 if [ "$1" == "-s" ]
   then
     sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
+    sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
 elif [[ "$1" == "-d" || "$1" == "-e" ]]
   then
     sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
