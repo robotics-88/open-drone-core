@@ -44,14 +44,11 @@ git lfs fetch && git lfs pull
 
 # Pull in repos
 cd $DISTAL_DIR/src/
-if [[ "$1" == "-s" ]]
-  then
+if [[ "$1" == "-s" ]]; then
     vcs import < sim_full.repos
-elif [[ "$1" == "-d" ]]
-  then
+elif [[ "$1" == "-d" ]]; then
     vcs import < decco.repos
-elif [[ "$1" == "-e" ]]
-  then
+elif [[ "$1" == "-e" ]]; then
     vcs import < ecco.repos
 fi
 vcs pull
@@ -88,28 +85,25 @@ rosdep install --from-paths src -y --ignore-src
 cd $DISTAL_DIR/src/mavros/mavros/scripts
 sudo ./install_geographiclib_datasets.sh
 
-# Install seek sdk
+# Platform dependent config
 cd $DISTAL_DIR
-if [ "$1" == "-s" ]
-  then
-    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
+if [[ "$1" == "-s" ]]; then
+    sudo apt install -y $DISTAL_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
     sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
-elif [[ "$1" == "-d" || "$1" == "-e" ]]
-  then
-    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
-fi
-
-
-# Other config
-if [[ "$1" == "-d"]]
-  then
+    echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
+elif [[ "$1" == "-d" ]]; then
+    sudo apt install -y $DISTAL_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
     sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
+    sudo cp $DISTAL_DIR/src/vehicle-launch/config/decco.service /etc/systemd/system/
+    sudo systemctl enable decco.service
     sudo udevadm control --reload-rules && sudo udevadm trigger
     sudo usermod -a -G dialout $USER
     sudo nmcli con mod "Wired connection 1" ipv4.addresses "192.168.1.5/24" ipv4.gateway "192.168.1.1" ipv4.method "manual"
-elif [[ "$1" == "-e" ]]
-  then
+elif [[ "$1" == "-e" ]]; then
+    sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
     sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-ecco.rules /etc/udev/rules.d/
+    sudo cp $DISTAL_DIR/src/vehicle-launch/config/ecco.service /etc/systemd/system/
+    sudo systemctl enable ecco.service
     sudo udevadm control --reload-rules && sudo udevadm trigger
     sudo usermod -a -G dialout $USER
 fi
@@ -117,8 +111,3 @@ fi
 echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
 echo "source $LIVOX_DIR/install/setup.bash" >> $HOME/.bashrc
 echo "source $DISTAL_DIR/install/setup.bash" >> $HOME/.bashrc
-
-if [[ "$1" == "-s" ]]
-  then
-    echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
-fi
