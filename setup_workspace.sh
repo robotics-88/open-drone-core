@@ -12,7 +12,7 @@ DISTAL_DIR="$HOME/src/distal"
 LIVOX_DIR="$HOME/src/livox_ros_driver2"
 
 # Generic deps
-sudo apt install autossh
+sudo apt install autossh pdal libpdal-dev
 
 # Install ROS
 sudo apt install software-properties-common

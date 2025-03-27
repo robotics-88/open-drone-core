@@ -4,11 +4,11 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/livox_ws/install/**",
-                "${HOME}/src/livox_ws/**",
+                "${HOME}/src/livox_ros_driver2/**",
                 "/usr/include/eigen3",
                 "/usr/include/pcl-1.12",
                 "/usr/include/opencv4",
+                "/usr/include/pdal",
                 "/opt/ros/humble/include/**"
             ],
             "defines": [],
