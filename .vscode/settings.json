@@ -85,7 +85,10 @@
         "source_location": "cpp",
         "core": "cpp",
         "specialfunctions": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "numericaldiff": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp"
     },
     "search.useIgnoreFiles": false,
     "python.autoComplete.extraPaths": [
