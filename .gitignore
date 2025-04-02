@@ -6,3 +6,5 @@ src/*/
 build_backup/
 install/
 log/
+
+flight/

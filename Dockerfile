@@ -27,8 +27,8 @@ RUN apt update && \
 
 
 # Trust github, in order to pull private git sources via ssh key
-USER ${USER_NAME}
-RUN mkdir -p -m 0700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+# USER ${USER_NAME}
+# RUN mkdir -p -m 0700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 
 # Install livox_sdk

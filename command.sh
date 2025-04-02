@@ -1,0 +1,1 @@
+ros2 launch vehicle_launch offline.launch flight_dir:=<full path to flight dir containing video.mp4 and bag/bag.mcap>
