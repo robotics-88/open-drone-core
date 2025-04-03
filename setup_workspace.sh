@@ -32,7 +32,7 @@ rosdep update
 
 
 # Install clang compiler and other optimizations
-sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin
+sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin libstdc++-12-dev
 colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
 colcon mixin update default
 git lfs install
