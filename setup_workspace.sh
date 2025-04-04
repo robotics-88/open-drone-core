@@ -104,6 +104,7 @@ if [[ "$1" == "-s" ]]; then
     echo 'export GZ_SIM_RESOURCE_PATH=$HOME/gz_ws/src/ardupilot_gazebo/models:$HOME/gz_ws/src/ardupilot_gazebo/worlds:${GZ_SIM_RESOURCE_PATH}' >> ~/.bashrc
 
     mkdir -p $HOME/gz_ws/src && cd $HOME/gz_ws/src
+    git clone https://github.com/robotics-88/ardupilot_gazebo
     export GZ_VERSION=harmonic
     cd ardupilot_gazebo
     mkdir build && cd build
