@@ -90,7 +90,11 @@ cd $DISTAL_DIR
 if [[ "$1" == "-s" ]]; then
     sudo apt install -y $DISTAL_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
     sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
+    sudo apt install libgz-sim8-dev rapidjson-dev
+    sudo apt install libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl
     echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
+    echo 'export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/gz_ws/src/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}' >> ~/.bashrc
+    echo 'export GZ_SIM_RESOURCE_PATH=$HOME/gz_ws/src/ardupilot_gazebo/models:$HOME/gz_ws/src/ardupilot_gazebo/worlds:${GZ_SIM_RESOURCE_PATH}' >> ~/.bashrc
 elif [[ "$1" == "-d" ]]; then
     sudo apt install -y $DISTAL_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
     sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
