@@ -7,7 +7,7 @@ export AIRSIM_DIR="/home/$USER/src/Colosseum"
 
 # Get UTC date for logging
 date=$(date -u '+%Y-%m-%d_%H-%M-%S')
-data_directory=/home/$USER/r88_public/records/$date/
+data_directory=/home/$USER/r88_public/sim/$date/
 mkdir -p $data_directory
 
 stdbuf -oL ros2 launch vehicle_launch decco.launch \
