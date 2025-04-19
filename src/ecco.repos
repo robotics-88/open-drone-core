@@ -30,7 +30,7 @@ repositories:
   seek-thermal:
     type: git
     url: git@github.com:robotics-88/seek-thermal.git
-    version: feature/humble
+    version: main
   task-manager:
     type: git
     url: git@github.com:robotics-88/task-manager.git
