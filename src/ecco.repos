@@ -18,7 +18,7 @@ repositories:
   opencv_cam:
     type: git
     url: git@github.com:robotics-88/opencv_cam.git
-    version: main
+    version: feature/temp-overlay
   ros2_shared:
     type: git
     url: https://github.com/ptrmu/ros2_shared.git
