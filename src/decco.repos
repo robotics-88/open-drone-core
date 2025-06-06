@@ -15,10 +15,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/image_to_v4l2loopback_ros2.git
     version: main
-  mavros:
-    type: git
-    url: https://github.com/robotics-88/mavros.git
-    version: ros2
   opencv_cam:
     type: git
     url: https://github.com/robotics-88/opencv_cam.git

@@ -11,10 +11,6 @@ repositories:
     type: git
     url: git@github.com:robotics-88/fast-lio2.git
     version: main
-  mavros:
-    type: git
-    url: git@github.com:robotics-88/mavros.git
-    version: ros2
   mp4-to-ros2:
     type: git
     url: git@github.com:robotics-88/mp4-to-ros2.git
