@@ -3,10 +3,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/bag_recorder_2.git
     version: main
-  exploration:
-    type: git
-    url: https://github.com/robotics-88/exploration.git
-    version: main
   fast-lio2:
     type: git
     url: https://github.com/robotics-88/fast-lio2.git
