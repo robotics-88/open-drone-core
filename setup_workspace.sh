@@ -92,6 +92,8 @@ if [[ "$1" == "-s" ]]; then
     sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
 
     echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
+    read -p "This script will overwrite your $HOME/Documents/AirSim/settings.json file. Press Enter to continue or Ctrl+C to abort."
+    sudo cp $DRONE_DIR/src/vehicle-launch/config/settings.json $HOME/Documents/AirSim/settings.json
 
     # Install Gazebo
     sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
