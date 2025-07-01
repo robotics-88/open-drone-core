@@ -57,6 +57,10 @@ vcs pull
 cd $DRONE_DIR/src/fast-lio2
 git submodule update --init --recursive
 
+# Clone rest API
+cd $DRONE_DIR/src/
+git clone https://github.com/robotics-88/open-drone-server.git
+
 # Install Livox SDK
 cd $HOME/src/
 git clone https://github.com/Livox-SDK/Livox-SDK2.git
@@ -115,6 +119,11 @@ if [[ "$1" == "-s" ]]; then
     mkdir build && cd build
     cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
     make -j4
+
+    # Clone frontend
+    cd $DRONE_DIR/src/
+    git clone https://github.com/robotics-88/open-drone-frontend.git
+
 elif [[ "$1" == "-d" ]]; then
     sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
     sudo cp $DRONE_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
