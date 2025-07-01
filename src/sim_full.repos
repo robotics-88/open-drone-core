@@ -31,10 +31,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/pcl-analysis.git
     version: main
-  post-flight:
-    type: git
-    url: https://github.com/robotics-88/post-flight.git
-    version: feature/humble
   ros-messages-88:
     type: git
     url: https://github.com/robotics-88/ros-messages-88.git
@@ -47,10 +43,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/rs_to_velodyne.git
     version: master
-  rviz_satellite:
-    type: git
-    url: https://github.com/nobleo/rviz_satellite.git
-    version: main
   seek-thermal:
     type: git
     url: https://github.com/robotics-88/seek-thermal.git
