@@ -82,8 +82,9 @@ cd $DRONE_DIR
 rosdep install --from-paths src -y --ignore-src
 
 # Install geographiclib
-cd $DRONE_DIR/src/mavros/mavros/scripts
-sudo ./install_geographiclib_datasets.sh
+wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
+sudo bash ./install_geographiclib_datasets.sh  
+rm install_geographiclib_datasets.sh
 
 # Platform dependent config
 cd $DRONE_DIR
