@@ -93,6 +93,8 @@ if [[ "$1" == "-s" ]]; then
 
     echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
     read -p "This script will overwrite your $HOME/Documents/AirSim/settings.json file. Press Enter to continue or Ctrl+C to abort."
+    # Make sure the target directory exists
+    mkdir -p "$HOME/Documents/AirSim"
     sudo cp $DRONE_DIR/src/vehicle-launch/config/settings.json $HOME/Documents/AirSim/settings.json
 
     # Install Gazebo

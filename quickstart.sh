@@ -6,6 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 echo "🏗️  Running workspace setup…"
 bash "$SCRIPT_DIR/setup_workspace.sh" -s
+echo "Completed, sourcing workspace…"
+source "$HOME/.bashrc"
 
 echo "📦  Building with colcon…"
 colcon build --packages-skip airsim_launch
