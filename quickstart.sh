@@ -4,13 +4,23 @@ set -euo pipefail
 # where this script lives
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
-echo "🏗️  Running workspace setup…"
-bash "$SCRIPT_DIR/setup_workspace.sh" -s
-echo "Completed, sourcing workspace…"
+# Check for --full-install flag
+if [[ " $* " == *" --full-install "* ]]; then
+    echo "🏗️  Running full workspace setup…"
+    bash "$SCRIPT_DIR/setup_workspace.sh" -s
+else
+    echo "Skipping full workspace setup. Use --full-install to run it."
+fi
+
+echo "Sourcing workspace…"
 source "$HOME/.bashrc"
 
 echo "📦  Building with colcon…"
-colcon build --packages-skip airsim_launch
+if ! colcon build --packages-skip airsim_launch; then
+    echo "❌ colcon build failed."
+    echo "💡 If this is the first build, did you forget to run this script with --full-install?"
+    exit 1
+fi
 
 echo "🚀  Starting Gazebo sim…"
 gz sim -v4 -r r88.sdf  > /dev/null 2>&1 &
