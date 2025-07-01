@@ -120,9 +120,9 @@ if [[ "$1" == "-s" ]]; then
     cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
     make -j4
 
-    # Install ArduPilotcd 
+    # Install ArduPilot
     cd $HOME/src
-    git clone --recurse-submodules git@github.com:robotics-88/r88_ardupilot.git
+    git clone --recurse-submodules https://github.com/robotics-88/r88_ardupilot.git
     cd r88_ardupilot
     Tools/environment_install/install-prereqs-ubuntu.sh -y
     export PATH=$PATH:$HOME/src/r88_ardupilot/Tools/autotest
