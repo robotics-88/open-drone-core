@@ -58,7 +58,7 @@ cd $DRONE_DIR/src/fast-lio2
 git submodule update --init --recursive
 
 # Clone rest API
-cd $DRONE_DIR/src/
+cd $HOME/src/
 git clone https://github.com/robotics-88/open-drone-server.git
 
 # Install Livox SDK
@@ -120,8 +120,17 @@ if [[ "$1" == "-s" ]]; then
     cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
     make -j4
 
+    # Install ArduPilotcd 
+    cd $HOME/src
+    git clone --recurse-submodules git@github.com:robotics-88/r88_ardupilot.git
+    cd r88_ardupilot
+    Tools/environment_install/install-prereqs-ubuntu.sh -y
+    export PATH=$PATH:$HOME/src/r88_ardupilot/Tools/autotest
+    export PATH=/usr/lib/ccache:$PATH
+    . ~/.profile
+
     # Clone frontend
-    cd $DRONE_DIR/src/
+    cd $HOME/src/
     git clone https://github.com/robotics-88/open-drone-frontend.git
 
 elif [[ "$1" == "-d" ]]; then
