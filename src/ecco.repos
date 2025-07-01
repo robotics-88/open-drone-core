@@ -1,19 +1,19 @@
 repositories:
   bag_recorder_2:
     type: git
-    url: git@github.com:robotics-88/bag_recorder_2.git
+    url: https://github.com:robotics-88/bag_recorder_2.git
     version: main
   i2c_temperature:
     type: git
-    url: git@github.com:robotics-88/i2c_temperature.git
+    url: https://github.com:robotics-88/i2c_temperature.git
     version: main
   image_to_v4l2loopback_ros2:
     type: git
-    url: git@github.com:robotics-88/image_to_v4l2loopback_ros2.git
+    url: https://github.com:robotics-88/image_to_v4l2loopback_ros2.git
     version: main
   opencv_cam:
     type: git
-    url: git@github.com:robotics-88/opencv_cam.git
+    url: https://github.com:robotics-88/opencv_cam.git
     version: main
   ros2_shared:
     type: git
@@ -21,21 +21,21 @@ repositories:
     version: master
   ros-messages-88:
     type: git
-    url: git@github.com:robotics-88/ros-messages-88.git
+    url: https://github.com:robotics-88/ros-messages-88.git
     version: main
   seek-thermal:
     type: git
-    url: git@github.com:robotics-88/seek-thermal.git
+    url: https://github.com:robotics-88/seek-thermal.git
     version: main
   task-manager:
     type: git
-    url: git@github.com:robotics-88/task-manager.git
+    url: https://github.com:robotics-88/task-manager.git
     version: main
   thermal-pipeline:
     type: git
-    url: git@github.com:robotics-88/thermal-pipeline.git
+    url: https://github.com:robotics-88/thermal-pipeline.git
     version: main
   vehicle-launch:
     type: git
-    url: git@github.com:robotics-88/vehicle-launch.git
+    url: https://github.com:robotics-88/vehicle-launch.git
     version: main
