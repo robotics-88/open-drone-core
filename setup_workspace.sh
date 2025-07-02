@@ -60,6 +60,11 @@ git submodule update --init --recursive
 # Clone rest API
 cd $HOME/src/
 git clone https://github.com/robotics-88/open-drone-server.git
+cd open-drone-server
+python3 -m venv .env
+source .env/bin/activate
+pip install -r requirements.txt
+deactivate
 
 # Install Livox SDK
 cd $HOME/src/
@@ -132,6 +137,11 @@ if [[ "$1" == "-s" ]]; then
     # Clone frontend
     cd $HOME/src/
     git clone https://github.com/robotics-88/open-drone-frontend.git
+    cd open-drone-frontend
+    python3 -m venv myenv
+    source myenv/bin/activate
+    pip install -r requirements.txt
+    deactivate
 
 elif [[ "$1" == "-d" ]]; then
     sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
