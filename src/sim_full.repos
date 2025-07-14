@@ -11,10 +11,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/fast-lio2.git
     version: main
-  mp4-to-ros2:
-    type: git
-    url: https://github.com/robotics-88/mp4-to-ros2.git
-    version: main
   opencv_cam:
     type: git
     url: https://github.com/robotics-88/opencv_cam.git
@@ -35,10 +31,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/ros-messages-88.git
     version: main
-  ros2_shared:
-    type: git
-    url: https://github.com/ptrmu/ros2_shared.git
-    version: master
   rs_to_velodyne:
     type: git
     url: https://github.com/robotics-88/rs_to_velodyne.git

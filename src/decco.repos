@@ -27,10 +27,6 @@ repositories:
     type: git
     url: https://github.com/robotics-88/pcl-analysis.git
     version: main
-  ros2_shared:
-    type: git
-    url: https://github.com/ptrmu/ros2_shared.git
-    version: master
   ros-messages-88:
     type: git
     url: https://github.com/robotics-88/ros-messages-88.git
