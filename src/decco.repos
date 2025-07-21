@@ -27,6 +27,10 @@ repositories:
     type: git
     url: https://github.com/robotics-88/pcl-analysis.git
     version: main
+  powerline-mapper:
+    type: git
+    url: https://github.com/robotics-88/powerline-mapper.git
+    version: main
   ros-messages-88:
     type: git
     url: https://github.com/robotics-88/ros-messages-88.git
@@ -42,6 +46,10 @@ repositories:
   thermal-pipeline:
     type: git
     url: https://github.com/robotics-88/thermal-pipeline.git
+    version: main
+  trail-follower:
+    type: git
+    url: https://github.com/robotics-88/trail-follower.git
     version: main
   vehicle-launch:
     type: git
