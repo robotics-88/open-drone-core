@@ -2,15 +2,24 @@
 
 set -e
 
-APP_DIR="$HOME/simple-drone-file-manager"
+APP_DIR="$HOME/src/simple-drone-file-manager"
 PUBLIC_DIR="$HOME/r88_public"
 PORT=9999
 
+mkdir -p $PUBLIC_DIR
+
 echo "[1/4] Cloning the repository..."
-git clone https://github.com/robotics-88/simple-drone-file-manager.git "$APP_DIR"
+if [ -d "$APP_DIR" ]; then
+    cd "$APP_DIR"
+    git pull
+else
+    git clone https://github.com/robotics-88/simple-drone-file-manager.git "$APP_DIR"
+fi
 
 echo "[2/4] Installing npm dependencies..."
-cd "$APP_DIR"
+cd $APP_DIR
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
 npm install
 
 echo "[3/4] Writing .env file..."

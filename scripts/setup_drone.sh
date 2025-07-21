@@ -19,7 +19,7 @@ sudo apt install ros-humble-ros-base ros-dev-tools
 
 source /opt/ros/humble/setup.bash
 
-sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensions
+sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensions python3-venv
 sudo rosdep init
 rosdep update
 
@@ -102,9 +102,6 @@ echo "source $DRONE_DIR/install/setup.bash" >> $HOME/.bashrc
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 # Install MediaMTX for video streaming
-cd $HOME/src/
-mkdir video
-cd video
 bash "$SCRIPT_DIR/install_mediamtx.sh" -s
 
 # Install file manager
@@ -117,3 +114,61 @@ sudo hostnamectl set-hostname drone
 # start on boot
 sudo systemctl enable avahi-daemon
 sudo systemctl start avahi-daemon
+
+
+###################################################### Build and ask restart
+echo "Sourcing workspace…"
+source "$HOME/.bashrc"
+cd $DRONE_DIR
+echo "📦  Building with colcon…"
+colcon build
+
+# Create systemd service for run_drone.sh
+echo "Creating systemd service for run_drone.sh..."
+cat <<EOF | sudo tee /etc/systemd/system/drone.service > /dev/null
+[Unit]
+Description=Run Open Drone Core
+After=network.target dev-cubeorange.device
+Requires=dev-cubeorange.device
+
+[Service]
+Type=simple
+User=$USER
+WorkingDirectory=$DRONE_DIR
+ExecStart=$DRONE_DIR/run_drone.sh
+Restart=on-failure
+Environment=HOME=$HOME
+Environment=USER=$USER
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable drone.service
+sudo systemctl start drone.service
+
+# Create systemd service for rest backend
+echo "Creating systemd service for open-drone-server..."
+cat <<EOF | sudo tee /etc/systemd/system/rest-server-drone.service > /dev/null
+[Unit]
+Description=Open Drone Server
+After=network.target
+
+[Service]
+Type=simple
+User=decco
+WorkingDirectory=/home/decco/src/open-drone-server
+ExecStart=/home/decco/src/open-drone-server/start.sh
+Environment=HOME=/home/decco
+Environment=PATH=/home/decco/src/open-drone-server/.env/bin:/usr/bin:/bin
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable rest-server-drone.service
+sudo systemctl start rest-server-drone.service
+
+echo "✔ Build complete. If any issues, try rebooting."

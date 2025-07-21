@@ -7,9 +7,11 @@ sudo apt update
 sudo apt install -y ffmpeg v4l-utils v4l2loopback-dkms v4l2loopback-utils
 
 echo "[2/6] Downloading and installing MediaMTX..."
+cd $HOME/src/
+mkdir video
+cd video
 wget -nc https://github.com/bluenviron/mediamtx/releases/download/v1.8.1/mediamtx_v1.8.1_linux_arm64v8.tar.gz
 tar -xf mediamtx_v1.8.1_linux_arm64v8.tar.gz
-cd mediamtx*
 
 echo "[3/6] Writing mediamtx.yml config..."
 cat <<EOF > mediamtx.yml
