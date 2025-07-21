@@ -138,8 +138,8 @@ if [[ "$1" == "-s" ]]; then
     cd $HOME/src/
     git clone https://github.com/robotics-88/open-drone-frontend.git
     cd open-drone-frontend
-    python3 -m venv myenv
-    source myenv/bin/activate
+    python3 -m venv .env
+    source .env/bin/activate
     pip install -r requirements.txt
     deactivate
 
