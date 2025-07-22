@@ -1,6 +1,7 @@
 #!/bin/bash
+set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/env.sh"
 
-set -e
 
 echo "[1/6] Installing dependencies..."
 sudo apt update

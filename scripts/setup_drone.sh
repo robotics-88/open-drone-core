@@ -1,174 +1,35 @@
 #!/bin/bash
+set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/env.sh"
 
-# Create vars
-DRONE_DIR="$HOME/src/open-drone-core"
-LIVOX_DIR="$HOME/src/livox_ros_driver2"
-
-# Generic deps
-sudo apt install autossh pdal libpdal-dev
-
-# Install ROS
-sudo apt install software-properties-common
-sudo add-apt-repository universe
-sudo apt update && sudo apt install curl -y
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-
-sudo apt update
-sudo apt install ros-humble-ros-base ros-dev-tools
-
-source /opt/ros/humble/setup.bash
-
-sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensions python3-venv
-sudo rosdep init
-rosdep update
-
-
-# Install clang compiler and other optimizations
-sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin libstdc++-12-dev
-colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
-colcon mixin update default
-git lfs install
-
-# Fetch git lfs artifacts, if not present already
-cd $DRONE_DIR
-git lfs fetch && git lfs pull
-
-
-# Pull in repos
-cd $DRONE_DIR/src/
-vcs import < decco.repos
-vcs pull
-
-# Get sub-deps
-cd $DRONE_DIR/src/fast-lio2
-git submodule update --init --recursive
-
-# Clone rest API
-cd $HOME/src/
-git clone https://github.com/robotics-88/open-drone-server.git
-cd open-drone-server
-python3 -m venv .env
-source .env/bin/activate
-pip install -r requirements.txt
-deactivate
-
-# Install Livox SDK
-cd $HOME/src/
-git clone https://github.com/Livox-SDK/Livox-SDK2.git
-cd Livox-SDK2 && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make -j3 && \
-    sudo make install
-
-# Install Livox ROS driver
-mkdir -p $LIVOX_DIR/src
-cd $LIVOX_DIR/src
-git clone https://github.com/Livox-SDK/livox_ros_driver2.git
-cd $LIVOX_DIR
-rosdep install --from-paths src -y --ignore-src
-cd src/livox_ros_driver2
-./build.sh humble
-source $LIVOX_DIR/install/setup.bash
-
-# Install general rosdeps
-cd $DRONE_DIR
-rosdep install --from-paths src -y --ignore-src
-
-# Install geographiclib
-wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
-sudo bash ./install_geographiclib_datasets.sh  
-rm install_geographiclib_datasets.sh
-
-# Hardware config
-cd $DRONE_DIR
-sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
-sudo cp $DRONE_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
-sudo cp $DRONE_DIR/src/vehicle-launch/config/decco.service /etc/systemd/system/
-sudo systemctl enable decco.service
-sudo udevadm control --reload-rules && sudo udevadm trigger
-sudo usermod -a -G dialout $USER
-sudo nmcli con mod "Wired connection 1" ipv4.addresses "192.168.1.5/24" ipv4.gateway "192.168.1.1" ipv4.method "manual"
-
-echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
-echo "source $LIVOX_DIR/install/setup.bash" >> $HOME/.bashrc
-echo "source $DRONE_DIR/install/setup.bash" >> $HOME/.bashrc
-
-######################################################## Support services
-
-# where this script lives
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+STEP_DIR="$SCRIPT_DIR/steps"
+declare -A step_status
 
-# Install MediaMTX for video streaming
-bash "$SCRIPT_DIR/install_mediamtx.sh" -s
+run_step() {
+    local step_name="$1"
+    local script_path="$2"
 
-# Install file manager
-cd $HOME/src/
-bash "$SCRIPT_DIR/install_filemanager.sh" -s
+    echo "▶ Running: $step_name"
+    if bash "$script_path"; then
+        step_status["$step_name"]="✅ Success"
+    else
+        step_status["$step_name"]="❌ Failed"
+    fi
+}
 
-# mDNS for name instead of IP
-sudo apt install avahi-daemon avahi-utils
-sudo hostnamectl set-hostname drone
-# start on boot
-sudo systemctl enable avahi-daemon
-sudo systemctl start avahi-daemon
+run_step "Install Dependencies"       "$STEP_DIR/00-install-deps.sh"
+run_step "Install ROS 2"              "$STEP_DIR/01-install-ros.sh"
+run_step "Fetch Drone Source"         "$STEP_DIR/02-fetch-source.sh"
+run_step "Install Livox SDK & Driver" "$STEP_DIR/03-livox-setup.sh"
+run_step "Setup Drone Server Backend" "$STEP_DIR/04-open-drone-server.sh"
+run_step "Hardware Config"            "$STEP_DIR/05-hardware-config.sh"
+run_step "Mediamtx Video Stream"      "$STEP_DIR/06-video-setup.sh"
+run_step "Setup File Manager"         "$STEP_DIR/07-file-manager.sh"
+run_step "Setup mDNS"                 "$STEP_DIR/08-mdns.sh"
+run_step "Workspace Build & Systemd"  "$STEP_DIR/09-build-and-services.sh"
 
-
-###################################################### Build and ask restart
-echo "Sourcing workspace…"
-source "$HOME/.bashrc"
-cd $DRONE_DIR
-echo "📦  Building with colcon…"
-colcon build
-
-# Create systemd service for run_drone.sh
-echo "Creating systemd service for run_drone.sh..."
-cat <<EOF | sudo tee /etc/systemd/system/drone.service > /dev/null
-[Unit]
-Description=Run Open Drone Core
-After=network.target dev-cubeorange.device
-Requires=dev-cubeorange.device
-
-[Service]
-Type=simple
-User=$USER
-WorkingDirectory=$DRONE_DIR
-ExecStart=$DRONE_DIR/run_drone.sh
-Restart=on-failure
-Environment=HOME=$HOME
-Environment=USER=$USER
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl daemon-reload
-sudo systemctl enable drone.service
-sudo systemctl start drone.service
-
-# Create systemd service for rest backend
-echo "Creating systemd service for open-drone-server..."
-cat <<EOF | sudo tee /etc/systemd/system/rest-server-drone.service > /dev/null
-[Unit]
-Description=Open Drone Server
-After=network.target
-
-[Service]
-Type=simple
-User=decco
-WorkingDirectory=/home/decco/src/open-drone-server
-ExecStart=/home/decco/src/open-drone-server/start.sh
-Environment=HOME=/home/decco
-Environment=PATH=/home/decco/src/open-drone-server/.env/bin:/usr/bin:/bin
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-sudo systemctl daemon-reload
-sudo systemctl enable rest-server-drone.service
-sudo systemctl start rest-server-drone.service
-
-echo "✔ Build complete. If any issues, try rebooting."
+echo -e "\n🧾 Setup Summary:"
+for step in "${!step_status[@]}"; do
+    printf "%-35s %s\n" "$step" "${step_status[$step]}"
+done

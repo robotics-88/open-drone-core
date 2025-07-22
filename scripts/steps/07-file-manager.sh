@@ -1,6 +1,6 @@
 #!/bin/bash
-
-set -e
+set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/env.sh"
 
 APP_DIR="$HOME/src/simple-drone-file-manager"
 PUBLIC_DIR="$HOME/r88_public"
