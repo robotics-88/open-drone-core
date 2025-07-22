@@ -8,7 +8,7 @@ if [[ -z "$1" ]]
 fi
 
 # Create vars
-DISTAL_DIR="$HOME/src/distal"
+DRONE_DIR="$HOME/src/open-drone-core"
 LIVOX_DIR="$HOME/src/livox_ros_driver2"
 
 # Generic deps
@@ -38,12 +38,12 @@ colcon mixin update default
 git lfs install
 
 # Fetch git lfs artifacts, if not present already
-cd $DISTAL_DIR
+cd $DRONE_DIR
 git lfs fetch && git lfs pull
 
 
 # Pull in repos
-cd $DISTAL_DIR/src/
+cd $DRONE_DIR/src/
 if [[ "$1" == "-s" ]]; then
     vcs import < sim_full.repos
 elif [[ "$1" == "-d" ]]; then
@@ -54,8 +54,17 @@ fi
 vcs pull
 
 # Get sub-deps
-cd $DISTAL_DIR/src/fast-lio2
+cd $DRONE_DIR/src/fast-lio2
 git submodule update --init --recursive
+
+# Clone rest API
+cd $HOME/src/
+git clone https://github.com/robotics-88/open-drone-server.git
+cd open-drone-server
+python3 -m venv .env
+source .env/bin/activate
+pip install -r requirements.txt
+deactivate
 
 # Install Livox SDK
 cd $HOME/src/
@@ -78,20 +87,25 @@ cd src/livox_ros_driver2
 source $LIVOX_DIR/install/setup.bash
 
 # Install general rosdeps
-cd $DISTAL_DIR
+cd $DRONE_DIR
 rosdep install --from-paths src -y --ignore-src
 
 # Install geographiclib
-cd $DISTAL_DIR/src/mavros/mavros/scripts
-sudo ./install_geographiclib_datasets.sh
+wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
+sudo bash ./install_geographiclib_datasets.sh  
+rm install_geographiclib_datasets.sh
 
 # Platform dependent config
-cd $DISTAL_DIR
+cd $DRONE_DIR
 if [[ "$1" == "-s" ]]; then
-    sudo apt install -y $DISTAL_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
+    sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
     sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
 
     echo "export AIRSIM_DIR="$HOME/src/Colosseum"" >> $HOME/.bashrc
+    read -p "This script will overwrite your $HOME/Documents/AirSim/settings.json file. Press Enter to continue or Ctrl+C to abort."
+    # Make sure the target directory exists
+    mkdir -p "$HOME/Documents/AirSim"
+    sudo cp $DRONE_DIR/src/vehicle-launch/config/settings.json $HOME/Documents/AirSim/settings.json
 
     # Install Gazebo
     sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
@@ -110,18 +124,37 @@ if [[ "$1" == "-s" ]]; then
     mkdir build && cd build
     cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
     make -j4
+
+    # Install ArduPilot
+    cd $HOME/src
+    git clone --recurse-submodules https://github.com/robotics-88/r88_ardupilot.git
+    cd r88_ardupilot
+    Tools/environment_install/install-prereqs-ubuntu.sh -y
+    export PATH=$PATH:$HOME/src/r88_ardupilot/Tools/autotest
+    export PATH=/usr/lib/ccache:$PATH
+    . ~/.profile
+
+    # Clone frontend
+    cd $HOME/src/
+    git clone https://github.com/robotics-88/open-drone-frontend.git
+    cd open-drone-frontend
+    python3 -m venv .env
+    source .env/bin/activate
+    pip install -r requirements.txt
+    deactivate
+
 elif [[ "$1" == "-d" ]]; then
-    sudo apt install -y $DISTAL_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
-    sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
-    sudo cp $DISTAL_DIR/src/vehicle-launch/config/decco.service /etc/systemd/system/
+    sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
+    sudo cp $DRONE_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
+    sudo cp $DRONE_DIR/src/vehicle-launch/config/decco.service /etc/systemd/system/
     sudo systemctl enable decco.service
     sudo udevadm control --reload-rules && sudo udevadm trigger
     sudo usermod -a -G dialout $USER
     sudo nmcli con mod "Wired connection 1" ipv4.addresses "192.168.1.5/24" ipv4.gateway "192.168.1.1" ipv4.method "manual"
 elif [[ "$1" == "-e" ]]; then
     sudo apt install -y ./assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
-    sudo cp $DISTAL_DIR/src/vehicle-launch/config/99-ecco.rules /etc/udev/rules.d/
-    sudo cp $DISTAL_DIR/src/vehicle-launch/config/ecco.service /etc/systemd/system/
+    sudo cp $DRONE_DIR/src/vehicle-launch/config/99-ecco.rules /etc/udev/rules.d/
+    sudo cp $DRONE_DIR/src/vehicle-launch/config/ecco.service /etc/systemd/system/
     sudo systemctl enable ecco.service
     sudo udevadm control --reload-rules && sudo udevadm trigger
     sudo usermod -a -G dialout $USER
@@ -129,4 +162,4 @@ fi
 
 echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
 echo "source $LIVOX_DIR/install/setup.bash" >> $HOME/.bashrc
-echo "source $DISTAL_DIR/install/setup.bash" >> $HOME/.bashrc
+echo "source $DRONE_DIR/install/setup.bash" >> $HOME/.bashrc
