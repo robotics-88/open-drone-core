@@ -32,7 +32,7 @@ sleep 10
 
 # Start REST API
 if lsof -iTCP:8080 -sTCP:LISTEN >/dev/null; then
-  echo "⚠️  Backend already running on port 8080 – skipping."
+  echo "⚠️  Backend already running on port 8080 - skipping."
 else
   echo "🧭  Starting drone REST API…"
   (
@@ -46,7 +46,7 @@ fi
 
 # Start frontend
 if lsof -iTCP:8040 -sTCP:LISTEN >/dev/null; then
-  echo "⚠️  Frontend already running on port 8040 – skipping."
+  echo "⚠️  Frontend already running on port 8040 - skipping."
 else
   echo "🗺️  Starting Map Frontend…"
   (
