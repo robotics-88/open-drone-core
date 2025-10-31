@@ -8,11 +8,12 @@ PORT=9999
 
 mkdir -p $PUBLIC_DIR
 
-echo "[1/4] Cloning the repository..."
 if [ -d "$APP_DIR" ]; then
+    echo "[1/4] Found repo, updating..."
     cd "$APP_DIR"
     git pull
 else
+    echo "[1/4] Cloning the repository..."
     git clone https://github.com/robotics-88/simple-drone-file-manager.git "$APP_DIR"
 fi
 
@@ -28,26 +29,30 @@ PUBLIC_DIRECTORY='$PUBLIC_DIR'
 PORT=$PORT
 EOF
 
-echo "[4/4] Creating systemd service for file manager..."
-sudo tee /etc/systemd/system/file-manager.service > /dev/null <<EOF
-[Unit]
-Description=Simple Drone File Manager
-After=network.target
+if [ -f "/etc/systemd/system/file-manager.service" ]; then
+    echo "[4/4] Systemd service file already exists. Skipping creation."
+else
+    echo "[4/4] Creating systemd service for file manager..."
+    sudo tee /etc/systemd/system/file-manager.service > /dev/null <<EOF
+    [Unit]
+    Description=Simple Drone File Manager
+    After=network.target
 
-[Service]
-WorkingDirectory=$APP_DIR
-ExecStart=$(which npm) start
-Restart=always
-Environment=NODE_ENV=production
-User=$USER
+    [Service]
+    WorkingDirectory=$APP_DIR
+    ExecStart=$(which npm) start
+    Restart=always
+    Environment=NODE_ENV=production
+    User=$USER
 
-[Install]
-WantedBy=multi-user.target
+    [Install]
+    WantedBy=multi-user.target
 EOF
 
-echo "Reloading and enabling service..."
-sudo systemctl daemon-reload
-sudo systemctl enable file-manager
-sudo systemctl start file-manager
+    echo "Reloading and enabling service..."
+    sudo systemctl daemon-reload
+    sudo systemctl enable file-manager
+    sudo systemctl start file-manager
+fi
 
-echo "✔ Simple Drone File Manager is now running at http://localhost:$PORT"
+echo " ✅ Success Simple Drone File Manager is now running at http://localhost:$PORT"

@@ -9,3 +9,5 @@ sudo hostnamectl set-hostname drone
 # start on boot
 sudo systemctl enable avahi-daemon
 sudo systemctl start avahi-daemon
+
+echo "08 mDNS setup completed. ✅ Success"

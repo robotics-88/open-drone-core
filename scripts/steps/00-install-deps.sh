@@ -6,3 +6,5 @@ echo "Installing generic dependencies..."
 
 sudo apt update
 sudo apt install autossh pdal libpdal-dev python3-venv
+
+echo " 00 Generic dependencies installation completed. ✅ Success"
