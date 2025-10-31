@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/env.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 
 echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
 echo "source $LIVOX_DIR/install/setup.bash" >> $HOME/.bashrc
