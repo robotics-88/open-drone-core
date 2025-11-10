@@ -19,7 +19,7 @@ run_step() {
 }
 
 run_step "Install Dependencies"       "$STEP_DIR/00-install-deps.sh"
-run_step "Install ROS 2"              "$STEP_DIR/01-install-ros.sh"
+run_step "Install ROS 2"              "$STEP_DIR/01-install-ros.sh" --base
 run_step "Fetch Drone Source"         "$STEP_DIR/02-fetch-source.sh"
 run_step "Install Livox SDK & Driver" "$STEP_DIR/03-livox-setup.sh"
 run_step "Setup Drone Server Backend" "$STEP_DIR/04-open-drone-server.sh"

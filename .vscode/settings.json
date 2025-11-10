@@ -93,5 +93,29 @@
     "search.useIgnoreFiles": false,
     "C_Cpp.clang_format_style": "file",
     "editor.defaultFormatter": "xaver.clang-format",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "python.autoComplete.extraPaths": [
+        "/home/erin/src/livox_ros_driver2/install/livox_ros_driver2/local/lib/python3.10/dist-packages",
+        "/home/erin/src/open-drone-core/install/yolov11_image_classifier/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/ocean_score_wrapper/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/messages_88/local/lib/python3.10/dist-packages",
+        "/home/erin/src/open-drone-core/install/i2c_temperature/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/fuels_classifier/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/fast_lio/local/lib/python3.10/dist-packages",
+        "/home/erin/src/open-drone-core/install/bag_recorder_2/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/erin/src/livox_ros_driver2/install/livox_ros_driver2/local/lib/python3.10/dist-packages",
+        "/home/erin/src/open-drone-core/install/yolov11_image_classifier/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/ocean_score_wrapper/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/messages_88/local/lib/python3.10/dist-packages",
+        "/home/erin/src/open-drone-core/install/i2c_temperature/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/fuels_classifier/lib/python3.10/site-packages",
+        "/home/erin/src/open-drone-core/install/fast_lio/local/lib/python3.10/dist-packages",
+        "/home/erin/src/open-drone-core/install/bag_recorder_2/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
 }

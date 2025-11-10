@@ -35,4 +35,11 @@ rosdep install --from-paths src -y --ignore-src
 cd src/livox_ros_driver2
 ./build.sh humble
 
+if ! grep -Fxq "source $LIVOX_DIR/install/setup.bash" ~/.bashrc; then
+    echo "source $LIVOX_DIR/install/setup.bash" >> ~/.bashrc
+    echo "Added Livox ROS setup.bash sourcing to .bashrc"
+else
+    echo "Livox ROS setup.bash already sourced in .bashrc"
+fi
+
 echo "03 Livox SDK and ROS driver installation completed. ✅ Success"

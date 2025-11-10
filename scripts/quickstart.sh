@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 # Check for --full-install flag
 if [[ " $* " == *" --full-install "* ]]; then
     echo "🏗️  Running full workspace setup…"
-    bash "$SCRIPT_DIR/setup_workspace.sh" -s
+    bash "$SCRIPT_DIR/setup_workspace.sh"
 else
     echo "Skipping full workspace setup. Use --full-install to run it."
 fi
@@ -36,7 +36,7 @@ if lsof -iTCP:8080 -sTCP:LISTEN >/dev/null; then
 else
   echo "🧭  Starting drone REST API…"
   (
-    cd "$SCRIPT_DIR/../open-drone-server" || exit 1
+    cd "$SCRIPT_DIR/../../open-drone-server" || exit 1
     source .env/bin/activate
     exec python main.py
   ) > /dev/null 2>&1 &
@@ -50,7 +50,7 @@ if lsof -iTCP:8040 -sTCP:LISTEN >/dev/null; then
 else
   echo "🗺️  Starting Map Frontend…"
   (
-    cd "$SCRIPT_DIR/../open-drone-frontend" || exit 1
+    cd "$SCRIPT_DIR/../../open-drone-frontend" || exit 1
     source myenv/bin/activate
     exec python main.py
   ) > /dev/null 2>&1 &
@@ -59,7 +59,7 @@ else
 fi
 
 echo "🛩️  Starting ArduPilot in new terminal…"
-gnome-terminal -- bash -c "cd '$SCRIPT_DIR/../r88_ardupilot'; ./run_gazebo.sh; exec bash"
+gnome-terminal -- bash -c "cd '$SCRIPT_DIR/../../r88_ardupilot'; ./run_gazebo.sh; exec bash"
 
 echo
 echo "🎯  All systems started! Spinning up ROS nodes next."

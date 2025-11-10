@@ -4,7 +4,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 
 echo "[1/6] Installing dependencies..."
 sudo apt update
-sudo apt install -y ffmpeg v4l-utils v4l2loopback-dkms v4l2loopback-utils
+# Loopback modules commented out for now as they cause issues with kernel 6.8
+sudo apt install -y ffmpeg v4l-utils # v4l2loopback-dkms v4l2loopback-utils
 
 echo "[2/6] Downloading and installing MediaMTX..."
 cd $HOME/src/

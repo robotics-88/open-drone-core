@@ -2,16 +2,30 @@
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 
+# Make non-interactive-safe sourcing
+set +u
+set +e
+source "$LIVOX_DIR/install/setup.bash" || true
+set -e
+set -u
+
+# Default repos file
+REPOS_FILE="decco.repos"
+
+# Parse --full argument
+if [[ "${1:-}" == "--full" ]]; then
+    REPOS_FILE="sim_full.repos"
+fi
+
 git lfs install
 
 # Fetch git lfs artifacts, if not present already
 cd $DRONE_DIR
 git lfs fetch && git lfs pull
 
-
 # Pull in repos
 cd $DRONE_DIR/src/
-vcs import < decco.repos
+vcs import < "$REPOS_FILE"
 vcs pull
 
 # Get sub-deps
