@@ -2,7 +2,7 @@
 
 source /opt/ros/humble/setup.bash
 source /home/$USER/src/open-drone-core/install/setup.bash
-source /home/$USER/src/livox_ros_driver2/install/setup.bash
+source /home/$USER/src/livox_ws/install/setup.bash
 
 # Get UTC date for logging
 date=$(date -u '+%Y-%m-%d_%H-%M-%S')

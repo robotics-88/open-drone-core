@@ -2,7 +2,7 @@
 
 source /opt/ros/humble/setup.bash
 source /home/$USER/src/open-drone-core/install/setup.bash
-source /home/$USER/src/livox_ros_driver2/install/setup.bash
+source /home/$USER/src/livox_ws/install/setup.bash
 export AIRSIM_DIR="/home/$USER/src/Colosseum"
 
 # default config
