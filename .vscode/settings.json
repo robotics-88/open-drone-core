@@ -88,7 +88,8 @@
         "span": "cpp",
         "numericaldiff": "cpp",
         "hash_map": "cpp",
-        "hash_set": "cpp"
+        "hash_set": "cpp",
+        "slist": "cpp"
     },
     "search.useIgnoreFiles": false,
     "C_Cpp.clang_format_style": "file",

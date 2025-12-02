@@ -18,10 +18,8 @@ deactivate
 
 
 # Create systemd service for rest backend
-if [ -f "/etc/systemd/system/rest-server-drone.service" ]; then
-    echo "Systemd service file already exists. Skipping creation. ✅ 04 Success"
-    exit 0
-fi
+sudo rm -f /etc/systemd/system/rest-server-drone.service
+
 echo "Creating systemd service for open-drone-server..."
 cat <<EOF | sudo tee /etc/systemd/system/rest-server-drone.service > /dev/null
 [Unit]
@@ -30,11 +28,11 @@ After=network.target
 
 [Service]
 Type=simple
-User=decco
-WorkingDirectory=/home/decco/src/open-drone-server
-ExecStart=/home/decco/src/open-drone-server/start.sh
-Environment=HOME=/home/decco
-Environment=PATH=/home/decco/src/open-drone-server/.env/bin:/usr/bin:/bin
+User=$USER
+WorkingDirectory=$HOME/src/open-drone-server
+ExecStart=$HOME/src/open-drone-server/start.sh
+Environment=HOME=$HOME
+Environment=PATH=$HOME/src/open-drone-server/.env/bin:/usr/bin:/bin
 Restart=on-failure
 
 [Install]
