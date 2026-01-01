@@ -1,9 +1,9 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
 # Clone rest API
-cd $HOME/src/
+cd $WORKSPACE_DIR/
 if [ -d "open-drone-server" ]; then
     echo "Directory open-drone-server already exists. Skipping clone."
 else
@@ -29,10 +29,10 @@ After=network.target
 [Service]
 Type=simple
 User=$USER
-WorkingDirectory=$HOME/src/open-drone-server
-ExecStart=$HOME/src/open-drone-server/start.sh
+WorkingDirectory=$WORKSPACE_DIR/open-drone-server
+ExecStart=$WORKSPACE_DIR/open-drone-server/start.sh
 Environment=HOME=$HOME
-Environment=PATH=$HOME/src/open-drone-server/.env/bin:/usr/bin:/bin
+Environment=PATH=$WORKSPACE_DIR/open-drone-server/.env/bin:/usr/bin:/bin
 Restart=on-failure
 
 [Install]

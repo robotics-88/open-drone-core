@@ -1,4 +1,4 @@
-# distal
+# Open Drone Core
 
 Codebase for Robotics 88 drone/sim ROS packages.
 ### Install Dependencies
@@ -9,24 +9,19 @@ mkdir -p ~/.ccache
 touch ~/.ccache/ccache.conf
 echo "max_size = 10G" >> ~/.ccache/ccache.conf
 
-colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
-colcon mixin update default
-
 git lfs install
 ```
 
-### Clone repository into `src`
-```
-mkdir -p ~/src/distal_ros2
-cd ~/src/
-git clone git@github.com:robotics-88/distal.git distal_ros2
-cd distal
-```
-
 ### Install dependencies and set up workspace
-Run 
+
+Recommended: Put this repo in a subfolder dedicated to this workspace, such as ~/workspace.
+There will be multiple other repos cloned here.
+
+First, install Conda from https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html
+
+Then, open a new terminal and run 
 ```
-./setup_workspace.sh
+./scripts/setup_workspace.sh
 ```
 
 ### Build

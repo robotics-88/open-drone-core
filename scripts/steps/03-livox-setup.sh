@@ -1,14 +1,19 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
 # Install Livox SDK
-cd $HOME/src/
+cd $WORKSPACE_DIR
 if [ -d "Livox-SDK2" ]; then
     echo "Livox-SDK2 directory already exists. Skipping clone."
 else
-    git clone https://github.com/Livox-SDK/Livox-SDK2.git
 
+    if [ $ROS_DISTRO == "jazzy" ]; then
+        git clone  -b fix-jazzy-build https://github.com/adriankoering/Livox-SDK2.git
+    else
+        git clone https://github.com/Livox-SDK/Livox-SDK2.git
+    fi
+    
     cd Livox-SDK2 && \
     git pull && \
     mkdir build && \

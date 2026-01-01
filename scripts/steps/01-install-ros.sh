@@ -1,24 +1,36 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
-# Previously completed?
-if [ -d /opt/ros/humble ]; then
-    echo "ROS Humble is already installed. Skipping installation."
+# Detect Ubuntu codename
+. /etc/os-release
+UBUNTU_CODENAME="${UBUNTU_CODENAME:-$VERSION_CODENAME}"
+
+# Map Ubuntu → ROS 2 distro
+case "$UBUNTU_CODENAME" in
+    jammy) ROS_DISTRO=humble ;;
+    *)
+        echo "Unsupported Ubuntu version: $UBUNTU_CODENAME"
+        exit 1
+        ;;
+esac
+
+if [[ -d "/opt/ros/$ROS_DISTRO" ]]; then
+    echo "ROS $ROS_DISTRO already installed. Skipping."
 else 
     # Install ROS
     ROS_VARIANT="${1:-desktop}"  # Accepts 'desktop' or 'base', defaults to 'desktop'
     sudo apt install -y software-properties-common
     sudo add-apt-repository universe
     sudo apt update && sudo apt install -y curl
-    sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+    curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
+    sudo dpkg -i /tmp/ros2-apt-source.deb
 
     sudo apt update
     if [[ "$ROS_VARIANT" == "base" ]]; then
-        sudo apt install -y ros-humble-ros-base ros-dev-tools
+        sudo apt install -y ros-$ROS_DISTRO-ros-base ros-dev-tools
     else
-        sudo apt install -y ros-humble-desktop ros-dev-tools
+        sudo apt install -y ros-$ROS_DISTRO-desktop ros-dev-tools
     fi
 fi
 
@@ -32,11 +44,5 @@ fi
 
 # Install clang compiler and other optimizations
 sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin libstdc++-12-dev
-if colcon mixin list | grep -q "default"; then
-    echo "colcon default mixin repository already added. Skipping."
-else
-    colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
-    colcon mixin update default
-fi
 
-echo "01 ROS 2 Humble installation completed. ✅ Success"
+echo "01 ROS 2 $ROS_DISTRO installation completed. ✅ Success"

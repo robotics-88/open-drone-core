@@ -1,9 +1,10 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
+
 
 # Clone frontend
-cd $HOME/src/
+cd $WORKSPACE_DIR/
 if [ -d "open-drone-frontend" ]; then
     echo "Directory open-drone-frontend already exists, skipping clone."
 else

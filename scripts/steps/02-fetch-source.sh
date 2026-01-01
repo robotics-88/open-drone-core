@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
 # Make non-interactive-safe sourcing
 set +u

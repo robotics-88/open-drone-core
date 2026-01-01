@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
 echo "[1/6] Installing dependencies..."
 sudo apt update
@@ -22,7 +22,7 @@ sudo modprobe -r v4l2loopback 2>/dev/null || true
 sudo modprobe v4l2loopback
 
 echo "[2/6] Downloading and installing MediaMTX..."
-cd $HOME/src/
+cd $WORKSPACE_DIR/
 if [ -d "video" ]; then
     echo "[3/6] video directory already exists. Skipping download."
     cd video

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
+
 
 # mDNS for name instead of IP
 sudo apt install avahi-daemon avahi-utils

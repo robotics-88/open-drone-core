@@ -1,12 +1,13 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
+
 
 sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
 sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
 
-if ! grep -q 'export AIRSIM_DIR="$HOME/src/Colosseum"' "$HOME/.bashrc"; then
-    echo 'export AIRSIM_DIR="$HOME/src/Colosseum"' >> "$HOME/.bashrc"
+if ! grep -q 'export AIRSIM_DIR="$WORKSPACE_DIR/Colosseum"' "$HOME/.bashrc"; then
+    echo 'export AIRSIM_DIR="$WORKSPACE_DIR/Colosseum"' >> "$HOME/.bashrc"
 fi
 # Make sure the target directory exists
 if [ -f "$HOME/Documents/AirSim/settings.json" ]; then
@@ -53,15 +54,15 @@ cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make -j4
 
 # Install ArduPilot
-if [ -d "$HOME/src/r88_ardupilot" ]; then
-    echo "$HOME/src/r88_ardupilot already exists, skipping clone."
+if [ -d "$WORKSPACE_DIR/r88_ardupilot" ]; then
+    echo "$WORKSPACE_DIR/r88_ardupilot already exists, skipping clone."
 else
-    cd $HOME/src
+    cd $WORKSPACE_DIR
     git clone --recurse-submodules https://github.com/robotics-88/r88_ardupilot.git
 fi
-cd $HOME/src/r88_ardupilot
+cd $WORKSPACE_DIR/r88_ardupilot
 Tools/environment_install/install-prereqs-ubuntu.sh -y
-export PATH=$PATH:$HOME/src/r88_ardupilot/Tools/autotest
+export PATH=$PATH:$WORKSPACE_DIR/r88_ardupilot/Tools/autotest
 export PATH=/usr/lib/ccache:$PATH
 . ~/.profile
 

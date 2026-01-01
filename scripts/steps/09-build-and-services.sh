@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
+
 
 grep -qxF "source /opt/ros/humble/setup.bash" "$HOME/.bashrc" || echo "source /opt/ros/humble/setup.bash" >> "$HOME/.bashrc"
 grep -qxF "source $LIVOX_DIR/install/setup.bash" "$HOME/.bashrc" || echo "source $LIVOX_DIR/install/setup.bash" >> "$HOME/.bashrc"

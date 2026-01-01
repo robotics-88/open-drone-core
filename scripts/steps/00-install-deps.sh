@@ -1,10 +1,15 @@
 #!/bin/bash
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
+
+: "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
 echo "Installing generic dependencies..."
 
 sudo apt update
-sudo apt install autossh pdal libpdal-dev python3-venv
+sudo apt install autossh python3-venv
+
+conda install -c conda-forge python-pdal libpdal
 
 echo " 00 Generic dependencies installation completed. ✅ Success"
+
+exit

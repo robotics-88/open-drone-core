@@ -1,17 +1,46 @@
 #!/bin/bash
 
-source "$(dirname "${BASH_SOURCE[0]}")/env.sh"
+set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# Detect Ubuntu codename
+. /etc/os-release
+UBUNTU_CODENAME="${UBUNTU_CODENAME:-$VERSION_CODENAME}"
+
+# Map Ubuntu → ROS 2 distro
+case "$UBUNTU_CODENAME" in
+    jammy) ROS_DISTRO=humble ;;
+    *)
+        echo "Unsupported Ubuntu version: $UBUNTU_CODENAME"
+        echo "Need to use jammy (22.04) for ROS 2 Humble due to Livox restrictions."
+        exit 1
+        ;;
+esac
+
+
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export WORKSPACE_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 STEP_DIR="$SCRIPT_DIR/steps"
+
+export DRONE_DIR="$WORKSPACE_DIR/open-drone-core"
+export LIVOX_DIR="$WORKSPACE_DIR/livox_ws"
+
+echo "This will clone things to $WORKSPACE_DIR and install necessary dependencies. Continue? (y/n)"
+read -r response
+if [[ "$response" != "y" && "$response" != "Y" ]]; then
+    echo "Setup aborted by user."
+    exit 1
+fi
+
 declare -A step_status
 
 run_step() {
     local step_name="$1"
     local script_path="$2"
+    shift 2
 
     echo "▶ Running: $step_name"
-    if bash "$script_path"; then
+    if bash "$script_path" "$@"; then
         step_status["$step_name"]="✅ Success"
     else
         step_status["$step_name"]="❌ Failed"
