@@ -2,13 +2,6 @@
 set -euo pipefail
 : "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
-# Make non-interactive-safe sourcing
-set +u
-set +e
-source "$LIVOX_DIR/install/setup.bash" || true
-set -e
-set -u
-
 # Default repos file
 REPOS_FILE="decco.repos"
 
@@ -31,10 +24,6 @@ vcs pull
 # Get sub-deps
 cd $DRONE_DIR/src/fast-lio2
 git submodule update --init --recursive
-
-# Install general rosdeps
-cd $DRONE_DIR
-rosdep install --from-paths src -y --ignore-src
 
 # Install geographiclib
 wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh

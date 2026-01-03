@@ -5,7 +5,7 @@ set -euo pipefail
 echo "[1/6] Installing dependencies..."
 sudo apt update
 # Uncommented these because you need them for the config steps below
-sudo apt install -y ffmpeg v4l-utils v4l2loopback-dkms v4l2loopback-utils
+sudo apt-get install -y ffmpeg v4l-utils v4l2loopback-dkms v4l2loopback-utils
 
 echo "[1.5/6] Configuring v4l2loopback..."
 # 1. Create the modprobe config file

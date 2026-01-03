@@ -3,19 +3,8 @@ set -euo pipefail
 : "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
 
-sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
-sudo apt install -y libexiv2-dev libimage-exiftool-perl exif exiv2
-
-if ! grep -q 'export AIRSIM_DIR="$WORKSPACE_DIR/Colosseum"' "$HOME/.bashrc"; then
-    echo 'export AIRSIM_DIR="$WORKSPACE_DIR/Colosseum"' >> "$HOME/.bashrc"
-fi
-# Make sure the target directory exists
-if [ -f "$HOME/Documents/AirSim/settings.json" ]; then
-    echo "Warning: $HOME/Documents/AirSim/settings.json already exists, not overwriting."
-else
-    mkdir -p "$HOME/Documents/AirSim"
-    sudo cp $DRONE_DIR/src/vehicle-launch/config/settings.json $HOME/Documents/AirSim/settings.json
-fi
+sudo apt-get install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_amd64.deb
+sudo apt-get install -y libexiv2-dev libimage-exiftool-perl exif exiv2
 
 # Install Gazebo
 if dpkg -l | grep -qw gz-harmonic; then
@@ -25,9 +14,10 @@ else
     sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
     sudo apt-get update
-    sudo apt-get install gz-harmonic ros-humble-ros-gzharmonic
-    sudo apt install libgz-sim8-dev rapidjson-dev
-    sudo apt install libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl
+    sudo apt-get remove -y ros-humble-ros-gz-sim
+    sudo apt-get install -y ros-humble-ros-gzharmonic
+    sudo apt-get install -y libgz-sim8-dev rapidjson-dev
+    sudo apt-get install -y libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl
     if ! grep -Fxq 'export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/gz_ws/src/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}' ~/.bashrc; then
         echo 'export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/gz_ws/src/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}' >> ~/.bashrc
     fi

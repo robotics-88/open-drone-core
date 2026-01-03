@@ -1,72 +1,71 @@
 FROM osrf/ros:humble-desktop-full
 
 # Deps
-RUN sudo apt update
-# RUN sudo mv /var/lib/dpkg/info/udev.postinst /var/lib/dpkg/info/udev.postinst.backup
-RUN sudo apt install -y ssh-client iputils-ping iproute2 udev unzip bash-completion
-# RUN sudo mv /var/lib/dpkg/info/udev.postinst.backup /var/lib/dpkg/info/udev.postinst
+RUN apt-get update
+RUN apt-get install -y \
+    ssh-client \
+    iputils-ping \
+    iproute2 \
+    udev \
+    unzip \
+    bash-completion \
+    git-lfs \
+    wget && \
+    rm -rf /var/lib/apt/lists/*
 
-# User stuff
-ARG USER_ID
-ARG GROUP_ID
-ARG USER_NAME
-ARG GROUP_NAME
+# Handle user stuff
+ARG USERNAME=developer
+ENV USER=$USERNAME
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 
-RUN addgroup --gid $GROUP_ID $GROUP_NAME && \
-    adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USER_NAME && \
-    usermod -aG sudo $USER_NAME && \
-    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
 
-USER $USER_NAME
+USER $USERNAME
 
-# Update rosdep
-RUN rosdep update
+# Setup workspace
+WORKDIR /open-drone-workspace
+ENV WORKSPACE_DIR="/open-drone-workspace"
+ENV DRONE_DIR="$WORKSPACE_DIR/open-drone-core"
+ENV LIVOX_DIR="$WORKSPACE_DIR/livox_ws"
+ENV STEP_DIR="$DRONE_DIR/scripts/steps"
+ENV PYTHONNOUSERSITE=1
 
-# Create /livox_ws workspace
-WORKDIR /livox_sdk
+# Copy source files necessary for drone build
+RUN mkdir -p {$DRONE_DIR}/src
+COPY ./src ${DRONE_DIR}/src
+COPY ./.git ${DRONE_DIR}/.git
 
-# Install livox sdk
-RUN git clone https://github.com/Livox-SDK/Livox-SDK2.git && \
-    cd Livox-SDK2 && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make -j && \
-    sudo make install
+RUN sudo chown -R ${USERNAME}:${USERNAME} ${DRONE_DIR}
 
-RUN sudo rm -rf /livox_sdk
+# Install steps - TODO put all copies as one once working reliably
+COPY ./scripts/steps/00-install-deps.sh ${STEP_DIR}/00-install-deps.sh
+RUN $STEP_DIR/00-install-deps.sh
 
-# Install livox_ros_driver2
-WORKDIR /livox_ws
-RUN /bin/bash -c " \
-    source /opt/ros/humble/setup.bash && \
-    mkdir -p src && \
-    git clone https://github.com/Livox-SDK/livox_ros_driver2.git src/livox_ros_driver2 && \
-    rosdep install --from-paths src -y --ignore-src && \
-    cd src/livox_ros_driver2 && \
-    ./build.sh humble"
+COPY ./scripts/steps/01-install-ros.sh ${STEP_DIR}/01-install-ros.sh
+RUN $STEP_DIR/01-install-ros.sh --desktop
 
-# Install distal deps
-COPY ./src/ /setup/src/
-COPY ./assets/ /setup/
-WORKDIR /setup/
-RUN sudo apt update
-RUN /bin/bash -c "source /livox_ws/install/setup.bash && \
-    rosdep install --from-paths src -y --ignore-src"
-RUN /bin/bash -c "sudo ./src/mavros/mavros/scripts/install_geographiclib_datasets.sh"
-RUN /bin/bash -c "sudo unzip Seek_Thermal_SDK_4.4.2.20.zip"
-RUN /bin/bash -c "sudo cp Seek_Thermal_SDK_4.4.2.20/x86_64-linux-gnu/lib/libseekcamera.so /usr/local/lib && \
-                  sudo cp Seek_Thermal_SDK_4.4.2.20/x86_64-linux-gnu/lib/libseekcamera.so.4.4 /usr/local/lib && \
-                  sudo cp -r Seek_Thermal_SDK_4.4.2.20/x86_64-linux-gnu/include/* /usr/local/include && \
-                  sudo cp Seek_Thermal_SDK_4.4.2.20/x86_64-linux-gnu/driver/udev/10-seekthermal.rules /etc/udev/rules.d && \
-                  sudo chmod u+x Seek_Thermal_SDK_4.4.2.20/x86_64-linux-gnu/bin/*"
-RUN sudo rm -rf /setup/src/
+COPY ./scripts/steps/02-fetch-source.sh ${STEP_DIR}/02-fetch-source.sh
+RUN $STEP_DIR/02-fetch-source.sh --full
 
-# Set up environment
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-RUN echo "source /distal_ws/install/setup.bash --extend" >> ~/.bashrc
-RUN echo "source /livox_ws/install/setup.bash --extend" >> ~/.bashrc
-RUN echo "source /usr/share/bash-completion/bash_completion" >> /home/$USER_NAME/.bashrc
-RUN echo "export AIRSIM_DIR=\"/Colosseum\"" >> ~/.bashrc
-RUN echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
-RUN git config --global core.editor "code --wait"
+COPY ./scripts/steps/03-livox-setup.sh ${STEP_DIR}/03-livox-setup.sh
+RUN $STEP_DIR/03-livox-setup.sh
+
+COPY ./scripts/steps/04-open-drone-server.sh ${STEP_DIR}/04-open-drone-server.sh
+RUN $STEP_DIR/04-open-drone-server.sh
+
+COPY ./scripts/steps/10-install-sims.sh ${STEP_DIR}/10-install-sims.sh
+RUN $STEP_DIR/10-install-sims.sh
+
+COPY ./scripts/steps/09-build.sh ${STEP_DIR}/09-build.sh
+RUN $STEP_DIR/09-build.sh
+
+COPY ./scripts/steps/11-frontend.sh ${STEP_DIR}/11-frontend.sh
+RUN $STEP_DIR/11-frontend.sh
+
+
+
+CMD ["sleep", "infinity"]

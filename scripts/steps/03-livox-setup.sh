@@ -2,17 +2,17 @@
 set -euo pipefail
 : "${WORKSPACE_DIR:?WORKSPACE_DIR not set}"
 
+set +u
+source /opt/ros/humble/setup.bash
+set -u
+
 # Install Livox SDK
 cd $WORKSPACE_DIR
 if [ -d "Livox-SDK2" ]; then
     echo "Livox-SDK2 directory already exists. Skipping clone."
 else
 
-    if [ $ROS_DISTRO == "jazzy" ]; then
-        git clone  -b fix-jazzy-build https://github.com/adriankoering/Livox-SDK2.git
-    else
-        git clone https://github.com/Livox-SDK/Livox-SDK2.git
-    fi
+    git clone https://github.com/Livox-SDK/Livox-SDK2.git
     
     cd Livox-SDK2 && \
     git pull && \
@@ -24,7 +24,7 @@ else
 fi
 
 # Install Livox ROS driver
-if [ -d "$LIVOX_DIR" ]; then
+if [ -d "$LIVOX_DIR/src/livox_ros_driver2" ]; then
     echo "Livox ROS driver already cloned."
 else
     mkdir -p $LIVOX_DIR/src
@@ -33,9 +33,10 @@ else
 fi
 
 # Install pcl deps
-sudo apt install libpcl-dev pcl-tools
+sudo apt-get install libpcl-dev pcl-tools
 
 cd $LIVOX_DIR
+rosdep update
 rosdep install --from-paths src -y --ignore-src
 cd src/livox_ros_driver2
 ./build.sh humble

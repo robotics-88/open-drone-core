@@ -1,11 +1,13 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
-	"name": "Distal Workspace",
+	"name": "Open Drone Core",
 	"dockerComposeFile": "../compose.yml",
-	"service": "distal",
-	"workspaceFolder": "/distal_ws",
+	"service": "open-drone-core",
+	"workspaceFolder": "/open-drone-workspace/open-drone-core",
 	"shutdownAction": "stopCompose",
+	"remoteUser": "developer",
+	"overrideCommand": false,
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -14,7 +16,16 @@
 				"p1c2u.docker-compose",
 				"formulahendry.docker-extension-pack",
 				"donjayamanne.githistory"
-			]
+			],
+			"settings": {
+				"ros.distro": "humble",
+				"terminal.integrated.profiles.linux": {
+				"bash": {
+					"path": "bash"
+				}
+				},
+				"terminal.integrated.defaultProfile.linux": "bash"
+			}
 		}
 	}
 }

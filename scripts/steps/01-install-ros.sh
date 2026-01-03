@@ -20,21 +20,21 @@ if [[ -d "/opt/ros/$ROS_DISTRO" ]]; then
 else 
     # Install ROS
     ROS_VARIANT="${1:-desktop}"  # Accepts 'desktop' or 'base', defaults to 'desktop'
-    sudo apt install -y software-properties-common
+    sudo apt-get install -y software-properties-common
     sudo add-apt-repository universe
-    sudo apt update && sudo apt install -y curl
+    sudo apt update && sudo apt-get install -y curl
     curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
     sudo dpkg -i /tmp/ros2-apt-source.deb
 
     sudo apt update
     if [[ "$ROS_VARIANT" == "base" ]]; then
-        sudo apt install -y ros-$ROS_DISTRO-ros-base ros-dev-tools
+        sudo apt-get install -y ros-$ROS_DISTRO-ros-base ros-dev-tools
     else
-        sudo apt install -y ros-$ROS_DISTRO-desktop ros-dev-tools
+        sudo apt-get install -y ros-$ROS_DISTRO-desktop ros-dev-tools
     fi
 fi
 
-sudo apt install -y python3-rosdep python3-vcstool python3-colcon-common-extensions
+sudo apt-get install -y python3-rosdep python3-vcstool python3-colcon-common-extensions
 if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]; then
     echo "rosdep already initialized. Skipping."
 else
@@ -43,6 +43,6 @@ else
 fi
 
 # Install clang compiler and other optimizations
-sudo apt install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin libstdc++-12-dev
+sudo apt-get install -y clang lld libomp-dev ccache git-lfs python3-colcon-mixin libstdc++-12-dev
 
 echo "01 ROS 2 $ROS_DISTRO installation completed. ✅ Success"

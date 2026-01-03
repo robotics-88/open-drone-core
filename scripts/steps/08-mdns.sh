@@ -4,7 +4,7 @@ set -euo pipefail
 
 
 # mDNS for name instead of IP
-sudo apt install avahi-daemon avahi-utils
+sudo apt-get install avahi-daemon avahi-utils
 sudo hostnamectl set-hostname drone
 
 # start on boot

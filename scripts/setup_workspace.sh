@@ -53,7 +53,7 @@ run_step "Fetch Drone Source"         "$STEP_DIR/02-fetch-source.sh" --full
 run_step "Install Livox SDK & Driver" "$STEP_DIR/03-livox-setup.sh"
 run_step "Setup Drone Server Backend" "$STEP_DIR/04-open-drone-server.sh"
 run_step "Install Sims"               "$STEP_DIR/10-install-sims.sh"
-run_step "Workspace Build & Systemd"  "$STEP_DIR/09-build-and-services.sh"
+run_step "Workspace Build"            "$STEP_DIR/09-build.sh"
 run_step "Frontend Setup"             "$STEP_DIR/11-frontend.sh"
 
 echo -e "\n🧾 Setup Summary:"

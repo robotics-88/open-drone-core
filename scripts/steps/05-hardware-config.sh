@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Hardware config
 cd $DRONE_DIR
-sudo apt install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
+sudo apt-get install -y $DRONE_DIR/assets/seekthermal-sdk-dev-4.4.2.20_arm64.deb
 sudo cp $DRONE_DIR/src/vehicle-launch/config/99-decco.rules /etc/udev/rules.d/
 sudo cp $DRONE_DIR/src/vehicle-launch/config/decco.service /etc/systemd/system/
 sudo systemctl enable decco.service

@@ -27,7 +27,8 @@ run_step "Hardware Config"            "$STEP_DIR/05-hardware-config.sh"
 run_step "Mediamtx Video Stream"      "$STEP_DIR/06-video-setup.sh"
 run_step "Setup File Manager"         "$STEP_DIR/07-file-manager.sh"
 run_step "Setup mDNS"                 "$STEP_DIR/08-mdns.sh"
-run_step "Workspace Build & Systemd"  "$STEP_DIR/09-build-and-services.sh"
+run_step "Workspace Build"            "$STEP_DIR/09-build.sh"
+run_step "Setup Autostart Services"   "$STEP_DIR/12-services.sh"
 
 echo -e "\n🧾 Setup Summary:"
 for step in "${!step_status[@]}"; do
