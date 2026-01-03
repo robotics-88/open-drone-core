@@ -93,12 +93,4 @@
     },
     "search.useIgnoreFiles": false,
     "C_Cpp.clang_format_style": "file",
-    "editor.defaultFormatter": "xaver.clang-format",
-    "python.autoComplete.extraPaths": [
-        "/opt/ros/jazzy/lib/python3.12/site-packages"
-    ],
-    "python.analysis.extraPaths": [
-        "/opt/ros/jazzy/lib/python3.12/site-packages"
-    ],
-    "cmake.sourceDirectory": "/home/gus/dev/open-drone-workspace/open-drone-core/src/airsim-mavros-wrapper",
 }
