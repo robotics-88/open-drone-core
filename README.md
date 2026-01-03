@@ -1,6 +1,11 @@
 # Open Drone Core
 
 Codebase for Robotics 88 drone/sim ROS packages.
+
+## Requirements
+This repo uses ROS2 Humble on Ubuntu 22.04. If that's not in your host, you can use the Docker container setup. There is a provided Dockerfile with docker compose and a devcontainer setup for VSCode, if you like using that.
+
+## Non-Docker setup (not needed if using Docker)
 ### Install Dependencies
 ```
 sudo apt install clang lld libomp-dev ccache git-lfs
@@ -14,22 +19,17 @@ git lfs install
 
 ### Install dependencies and set up workspace
 
-Recommended: Put this repo in a subfolder dedicated to this workspace, such as ~/workspace.
-There will be multiple other repos cloned here.
-
-First, install Conda from https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html
-
-Then, open a new terminal and run 
+Run
 ```
 ./scripts/setup_workspace.sh
 ```
 
-### Build
+## Build
 ```
 colcon build
 ```
 
-### Running the code
+## Running the code
 Sim:
 ```
 ros2 launch vehicle_launch decco.xml simulate:=true
@@ -40,14 +40,14 @@ ros2 launch vehicle_launch decco.xml
 ```
 You can of course add whatever arguments are available in decco launch in addition. If you get RLException, try again in a new bash terminal window (so that the .bashrc sources the environment setup variables for this ROS workspace).
 
-### PRs
+## PRs
 When creating a multi-repo PR, create a vcs file for those testing to quickly set their workspace so all repos are on the correct branch. Because github doesn't like .repos, and vcs doesn't care about the extension, name it with extension `.txt`. The file should only list those repos required for the PR. One quick way to do this is, in your workspace with all repos on the PR branches, run:
 
 `vcs export > prname.txt`
 
 Then delete from the file any repos not changed by the PR.
 
-### vcstool tips
+## vcstool tips
 
 [vcstool](https://github.com/dirk-thomas/vcstool) helps to track a multirepo workspace. Frequently used commands:
 
